@@ -4,7 +4,7 @@ Instructions for AI agents (and humans) working in this repository. Read this fi
 
 ## What this is
 
-The public website for a consumer-law compliance monitor for Nordic e-commerce and subscription businesses (working name **Klarkoll**; the final name may change). The site offers a free scan: a visitor enters their website and email, and receives a report on the withdrawal button, misleading design (dark patterns) and subscription flows.
+The public website for a consumer-law compliance monitor for Nordic e-commerce and subscription businesses (brand: **Untrick**, domain untrick.eu). The site offers a free scan: a visitor enters their website and email, and receives a report on the withdrawal button, misleading design (dark patterns) and subscription flows.
 
 Owner: Alpha Lima AB (Anton). The site is static: plain HTML, CSS and a small script, built by a Node script with no dependencies.
 
@@ -70,7 +70,7 @@ The accessibility check needs a browser: run `npx playwright install chromium` o
 
 ## Launch checklist (current status: pre-launch)
 
-- [ ] Final brand name chosen; trademark (PRV/EUIPO) and domain checked; `content/site.json` → `name`
+- [x] Brand name chosen (Untrick) and untrick.eu registered; trademark check at EUIPO still to do
 - [ ] Domain connected in statichost.eu; `baseUrl` set
 - [ ] Form endpoint set (`form.provider` + `form.endpoint`) and a test submission received
 - [ ] `contactEmail` set

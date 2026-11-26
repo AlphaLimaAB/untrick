@@ -1,8 +1,8 @@
 {
-  "name": "klarkoll-site",
+  "name": "untrick-site",
   "version": "0.1.0",
   "private": true,
-  "description": "Landing page for the free consumer-law scan (working name Klarkoll).",
+  "description": "Landing page for the free consumer-law scan at untrick.eu.",
   "type": "module",
   "engines": {
     "node": ">=22"

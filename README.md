@@ -1,4 +1,4 @@
-# Klarkoll website (working name)
+# Untrick website (untrick.eu)
 
 Landing page for a free automated check of online shops against EU consumer rules (withdrawal button, dark patterns, subscription flows, Digital Fairness Act readiness). Swedish at `/`, English at `/en/`.
 

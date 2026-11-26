@@ -1,7 +1,7 @@
 {
-  "name": "Klarkoll",
-  "baseUrl": "",
-  "contactEmail": "",
+  "name": "Untrick",
+  "baseUrl": "https://untrick.eu",
+  "contactEmail": "hello@untrick.eu",
   "company": {
     "name": "Alpha Lima AB",
     "orgNr": "559563-8858",
@@ -11,6 +11,9 @@
     "provider": "forminit",
     "endpoint": ""
   },
-  "languages": ["sv", "en"],
+  "languages": [
+    "sv",
+    "en"
+  ],
   "defaultLanguage": "sv"
 }
