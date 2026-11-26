@@ -1,0 +1,5 @@
+# statichost.eu build configuration (https://www.statichost.eu/docs/build-config/)
+# The build uses only Node built-ins, so no npm install is needed to deploy.
+image: node:22.11.0
+command: node scripts/build.mjs
+public: dist

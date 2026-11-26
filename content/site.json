@@ -1,0 +1,16 @@
+{
+  "name": "Klarkoll",
+  "baseUrl": "",
+  "contactEmail": "",
+  "company": {
+    "name": "Alpha Lima AB",
+    "orgNr": "559563-8858",
+    "address": "Näckrosvägen 5, 181 61 Lidingö, Sweden"
+  },
+  "form": {
+    "provider": "forminit",
+    "endpoint": ""
+  },
+  "languages": ["sv", "en"],
+  "defaultLanguage": "sv"
+}

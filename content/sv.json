@@ -1,0 +1,160 @@
+{
+  "meta": {
+    "title": "{name} – Gratis koll av din e-handel mot konsumentreglerna",
+    "description": "Gratis automatisk kontroll av ångerknapp, manipulativ design och prenumerationsflöden. Förbered dig för EU:s Digital Fairness Act."
+  },
+  "nav": {
+    "otherLanguage": "English"
+  },
+  "hero": {
+    "eyebrow": "För e-handel och prenumerationstjänster",
+    "title": "Följer din e-handel de nya konsumentreglerna?",
+    "lede": "Gratis automatisk kontroll av ångerknappen, manipulativ design och ditt uppsägningsflöde. Du får en rapport med skärmbilder och konkreta åtgärder – utan att någon behöver logga in hos dig."
+  },
+  "form": {
+    "urlLabel": "Din webbplats",
+    "urlPlaceholder": "https://dinbutik.se",
+    "emailLabel": "E-post för rapporten",
+    "emailPlaceholder": "namn@foretag.se",
+    "consent": "Jag godkänner att {name} skannar sidan och skickar rapporten till min e-post. Vi använder adressen bara för rapporten och en uppföljning.",
+    "privacyLink": "Läs vår integritetspolicy",
+    "submit": "Skanna min webbplats gratis",
+    "note": "Rapporten kommer inom 24 timmar. Ingen kortuppgift, ingen förpliktelse.",
+    "errorInvalid": "Fyll i webbplats, e-post och kryssa i godkännandet.",
+    "errorNetwork": "Något gick fel. Försök igen om en stund.",
+    "thanksTitle": "Tack! Vi är igång.",
+    "thanksBody": "Rapporten skickas till din e-post inom 24 timmar."
+  },
+  "checks": {
+    "title": "Det här kontrollerar vi",
+    "intro": "Vi går igenom köp-, registrerings- och uppsägningsflödet på samma sätt som en kund – och jämför mot reglerna.",
+    "tagNow": "Gäller nu",
+    "tagSoon": "På väg",
+    "items": [
+      {
+        "status": "now",
+        "title": "Ångerknappen",
+        "body": "Sedan 19 juni 2026 ska kunder som handlat online kunna ångra köpet via en tydlig funktion på sajten, med bekräftelsesteg och kvittens."
+      },
+      {
+        "status": "now",
+        "title": "Vilseledande design",
+        "body": "Falsk brådska (\"bara 2 kvar\"), förkryssade tillval, dolda avgifter i sista steget och \"nej tack\"-knappar som skuldbelägger."
+      },
+      {
+        "status": "now",
+        "title": "Prenumerationer",
+        "body": "Hur lätt det är att säga upp jämfört med att teckna, och hur provperioder och förnyelser kommuniceras."
+      },
+      {
+        "status": "soon",
+        "title": "Digital Fairness Act",
+        "body": "EU-kommissionen lade fram förslaget 11 november 2026. Vi visar var du redan i dag avviker från de föreslagna kraven, så att du hinner rätta i lugn och ro."
+      }
+    ]
+  },
+  "how": {
+    "title": "Så fungerar det",
+    "steps": [
+      {
+        "title": "Ange din adress",
+        "body": "Ingen installation och ingen inloggning hos dig."
+      },
+      {
+        "title": "Vi skannar flödena",
+        "body": "Våra agenter klickar igenom sajten och jämför med ett regelbibliotek som granskas av jurister."
+      },
+      {
+        "title": "Du får rapporten",
+        "body": "Skärmbilder, vilken regel det gäller, hur allvarligt det är och hur du rättar det."
+      }
+    ]
+  },
+  "pricing": {
+    "title": "Löpande bevakning",
+    "intro": "Sajter ändras varje vecka, och reglerna också. Med bevakning skannar vi om automatiskt och varnar när något bryter mot reglerna.",
+    "plans": [
+      {
+        "name": "Gratis koll",
+        "price": "0 kr",
+        "featured": false,
+        "features": [
+          "En skanning av startsida, kassa och uppsägning",
+          "Rapport via e-post"
+        ]
+      },
+      {
+        "name": "Bevakning",
+        "price": "från 1 500 kr/mån",
+        "featured": true,
+        "features": [
+          "Veckovis omskanning",
+          "Varning när regler eller sajten ändras",
+          "Svenska och engelska"
+        ]
+      },
+      {
+        "name": "Större bolag och byråer",
+        "price": "Offert",
+        "featured": false,
+        "features": [
+          "Flera sajter och marknader",
+          "Vit etikett för byråer"
+        ]
+      }
+    ]
+  },
+  "faq": {
+    "title": "Vanliga frågor",
+    "items": [
+      {
+        "q": "Är det här juridisk rådgivning?",
+        "a": "Nej. {name} är en automatisk bevakningstjänst. Regelbiblioteket granskas av vår juristpartner, men rapporten ersätter inte rådgivning i ett enskilt fall."
+      },
+      {
+        "q": "Behöver ni tillgång till våra system?",
+        "a": "Nej. Vi tittar bara på det en vanlig kund ser på er sajt."
+      },
+      {
+        "q": "Vad händer med min e-postadress?",
+        "a": "Den används för rapporten och en uppföljning. Data lagras inom EU. Du kan be oss radera den när som helst."
+      }
+    ]
+  },
+  "footer": {
+    "serviceBy": "{name} är en tjänst från",
+    "orgNr": "Org.nr",
+    "privacy": "Integritetspolicy"
+  },
+  "privacy": {
+    "slug": "integritet",
+    "title": "Integritetspolicy",
+    "draftNotice": "Utkast – granskas av jurist innan lansering.",
+    "sections": [
+      {
+        "heading": "Vem ansvarar för dina uppgifter",
+        "body": "Personuppgiftsansvarig är {company}, org.nr {orgNr}, {address}."
+      },
+      {
+        "heading": "Vilka uppgifter vi samlar in",
+        "body": "När du beställer en gratis koll sparar vi webbadressen du anger, din e-postadress, valt språk och tidpunkten."
+      },
+      {
+        "heading": "Varför och med vilken rättslig grund",
+        "body": "Vi använder uppgifterna för att ta fram och skicka rapporten och för en uppföljning. Grunden är ditt samtycke, som du kan återkalla när som helst."
+      },
+      {
+        "heading": "Var uppgifterna lagras och hur länge",
+        "body": "Uppgifterna lagras hos vårt formulärverktyg inom EU. Vi raderar dem senast 12 månader efter att rapporten skickats, eller tidigare om du ber oss."
+      },
+      {
+        "heading": "Kakor och spårning",
+        "body": "Webbplatsen använder inga kakor och ingen spårning för reklam."
+      },
+      {
+        "heading": "Dina rättigheter",
+        "body": "Du har rätt att få tillgång till, rätta och radera dina uppgifter, och att klaga hos Integritetsskyddsmyndigheten (IMY)."
+      }
+    ]
+  }
+}

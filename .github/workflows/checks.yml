@@ -1,0 +1,46 @@
+name: Checks
+
+# Runs on every pull request and on every push to main.
+# Branch protection on main requires this workflow to pass before anything can be merged,
+# so nothing reaches the live site without passing the checks.
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: checks-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  checks:
+    name: Content, HTML, links and accessibility
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install check tools
+        run: npm ci
+
+      - name: Install headless browser for accessibility check
+        run: npx playwright install --with-deps chromium
+
+      - name: Run all checks
+        run: npm run check
+
+      - name: Upload built site (for review)
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: site
+          path: dist
+          retention-days: 7

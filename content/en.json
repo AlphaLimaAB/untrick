@@ -1,0 +1,160 @@
+{
+  "meta": {
+    "title": "{name} – Free check of your online shop against consumer rules",
+    "description": "Free automated check of your withdrawal button, manipulative design and subscription flows. Get ready for the EU Digital Fairness Act."
+  },
+  "nav": {
+    "otherLanguage": "Svenska"
+  },
+  "hero": {
+    "eyebrow": "For online shops and subscription businesses",
+    "title": "Does your online shop follow the new consumer rules?",
+    "lede": "A free automated check of your withdrawal button, manipulative design and cancellation flow. You get a report with screenshots and concrete fixes – no access to your systems needed."
+  },
+  "form": {
+    "urlLabel": "Your website",
+    "urlPlaceholder": "https://yourshop.com",
+    "emailLabel": "Email for the report",
+    "emailPlaceholder": "name@company.com",
+    "consent": "I agree that {name} scans the site and emails me the report. We only use your address for the report and one follow-up.",
+    "privacyLink": "Read our privacy policy",
+    "submit": "Scan my website for free",
+    "note": "Report within 24 hours. No card, no commitment.",
+    "errorInvalid": "Please enter a website, an email and tick the consent box.",
+    "errorNetwork": "Something went wrong. Please try again shortly.",
+    "thanksTitle": "Thanks! We're on it.",
+    "thanksBody": "Your report will arrive by email within 24 hours."
+  },
+  "checks": {
+    "title": "What we check",
+    "intro": "We walk through your checkout, sign-up and cancellation flows like a customer would – and compare them with the rules.",
+    "tagNow": "Applies now",
+    "tagSoon": "Coming",
+    "items": [
+      {
+        "status": "now",
+        "title": "The withdrawal button",
+        "body": "Since 19 June 2026, customers who buy online must be able to withdraw through a clearly labelled function on the site, with a confirmation step and acknowledgement."
+      },
+      {
+        "status": "now",
+        "title": "Misleading design",
+        "body": "Fake urgency (\"only 2 left\"), pre-ticked add-ons, fees hidden until the last step and \"no thanks\" buttons that guilt-trip."
+      },
+      {
+        "status": "now",
+        "title": "Subscriptions",
+        "body": "How easy it is to cancel compared with signing up, and how free trials and renewals are communicated."
+      },
+      {
+        "status": "soon",
+        "title": "Digital Fairness Act",
+        "body": "The European Commission proposed it on 11 November 2026. We show where you already differ from the proposed rules, so you can fix things calmly."
+      }
+    ]
+  },
+  "how": {
+    "title": "How it works",
+    "steps": [
+      {
+        "title": "Enter your address",
+        "body": "No installation and no login to your systems."
+      },
+      {
+        "title": "We scan the flows",
+        "body": "Our agents click through the site and compare it with a rule library reviewed by lawyers."
+      },
+      {
+        "title": "You get the report",
+        "body": "Screenshots, which rule applies, how serious it is and how to fix it."
+      }
+    ]
+  },
+  "pricing": {
+    "title": "Ongoing monitoring",
+    "intro": "Sites change every week, and so do the rules. With monitoring we rescan automatically and alert you when something breaks the rules.",
+    "plans": [
+      {
+        "name": "Free check",
+        "price": "SEK 0",
+        "featured": false,
+        "features": [
+          "One scan of home page, checkout and cancellation",
+          "Report by email"
+        ]
+      },
+      {
+        "name": "Monitoring",
+        "price": "from SEK 1,500/mo",
+        "featured": true,
+        "features": [
+          "Weekly rescans",
+          "Alerts when rules or your site change",
+          "Swedish and English"
+        ]
+      },
+      {
+        "name": "Larger companies and agencies",
+        "price": "Quote",
+        "featured": false,
+        "features": [
+          "Several sites and markets",
+          "White label for agencies"
+        ]
+      }
+    ]
+  },
+  "faq": {
+    "title": "FAQ",
+    "items": [
+      {
+        "q": "Is this legal advice?",
+        "a": "No. {name} is an automated monitoring service. Our legal partner reviews the rule library, but the report does not replace advice on a specific case."
+      },
+      {
+        "q": "Do you need access to our systems?",
+        "a": "No. We only look at what an ordinary customer sees on your site."
+      },
+      {
+        "q": "What happens to my email address?",
+        "a": "It is used for the report and one follow-up. Data is stored in the EU. You can ask us to delete it any time."
+      }
+    ]
+  },
+  "footer": {
+    "serviceBy": "{name} is a service by",
+    "orgNr": "Reg. no.",
+    "privacy": "Privacy policy"
+  },
+  "privacy": {
+    "slug": "privacy",
+    "title": "Privacy policy",
+    "draftNotice": "Draft – to be reviewed by a lawyer before launch.",
+    "sections": [
+      {
+        "heading": "Who is responsible for your data",
+        "body": "The data controller is {company}, reg. no. {orgNr}, {address}."
+      },
+      {
+        "heading": "What we collect",
+        "body": "When you request a free check we store the web address you enter, your email address, your chosen language and the time."
+      },
+      {
+        "heading": "Why, and on what legal basis",
+        "body": "We use the data to produce and send the report and for one follow-up. The legal basis is your consent, which you can withdraw at any time."
+      },
+      {
+        "heading": "Where the data is stored and for how long",
+        "body": "The data is stored with our form provider inside the EU. We delete it no later than 12 months after the report is sent, or earlier if you ask us to."
+      },
+      {
+        "heading": "Cookies and tracking",
+        "body": "This website uses no cookies and no advertising tracking."
+      },
+      {
+        "heading": "Your rights",
+        "body": "You have the right to access, correct and delete your data, and to complain to the Swedish Authority for Privacy Protection (IMY)."
+      }
+    ]
+  }
+}
