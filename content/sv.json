@@ -26,7 +26,7 @@
     "errorWait": "Vänta några sekunder och försök igen.",
     "errorNetwork": "Något gick fel. Försök igen om en stund.",
     "thanksTitle": "Tack! Vi är igång.",
-    "thanksBody": "Rapporten skickas till din e-post inom 24 timmar."
+    "thanksBody": "Rapporten skickas till din e-post inom 24 timmar. Tips: lägg gärna en testorder i din butik och svara på vårt mejl med ordernumret – då kan vi även kontrollera ångerknappen, som ofta bara syns efter ett köp."
   },
   "checks": {
     "title": "Det här kontrollerar vi",
@@ -121,6 +121,10 @@
       {
         "q": "Kan jag beställa en koll av någon annans webbplats?",
         "a": "Nej. Den kostnadsfria rapporten skickas bara till den som äger eller arbetar för webbplatsen. Vi kontrollerar det innan vi skickar."
+      },
+      {
+        "q": "Varför ber ni om en testorder?",
+        "a": "Ångerknappen och bekräftelsen syns ofta först efter ett köp. Med en testorder från dig kan vi kontrollera hela flödet. Utan den skriver vi i rapporten att just den delen inte kunde kontrolleras."
       },
       {
         "q": "Vad händer med min e-postadress?",
