@@ -76,12 +76,55 @@ function progress(t, step, back = true) {
     </div>`;
 }
 
+const ICON_YES = '<svg aria-hidden="true" focusable="false" width="20" height="20" viewBox="0 0 20 20"><path d="M3 10.5l4.5 4.5L17 5" stroke="currentColor" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+
+// Free vs monitoring vs enterprise. done = shown after a request, so the free column is already taken.
+function compareTable({ t, paths, bookHref, contactHref, done }) {
+  const c = t.compare;
+  const cell = (v) => (v === 'yes'
+    ? `<span class="yes">${ICON_YES}<span class="vh">${esc(c.yes)}</span></span>`
+    : v === 'no' ? `<span class="no" aria-hidden="true">–</span><span class="vh">${esc(c.no)}</span>` : esc(v));
+  const col = (i) => (c.plans[i].featured ? ' class="featured"' : '');
+  const head = c.plans.map((p, i) => `
+        <th scope="col"${col(i)}><span class="plan-name">${p.featured ? `<span class="mark line">${esc(p.name)}${UNDERLINE}</span>` : esc(p.name)}</span><span class="plan-price">${esc(p.price)}</span><span class="plan-tag">${esc(p.tagline)}</span></th>`).join('');
+  const rows = c.rows.map((r) => `
+      <tr>
+        <th scope="row">${esc(r.label)}</th>${r.values.map((v, i) => `<td${col(i)}>${cell(v)}</td>`).join('')}
+      </tr>`).join('');
+  const free = done
+    ? `<span class="taken">${ICON_YES} ${esc(c.freeDone)}</span>`
+    : `<a class="btn btn-line" href="${paths.home}">${esc(c.freeCta)}</a>`;
+  const ctas = [free, `<a class="btn" href="${bookHref}">${esc(c.monitorCta)}</a>`, `<a class="btn btn-line" href="${contactHref}">${esc(c.enterpriseCta)}</a>`];
+  return `
+  <section class="table-wrap" aria-label="${esc(c.title)}" tabindex="0">
+    <table class="compare">
+      <thead>
+      <tr>
+        <td></td>${head}
+      </tr>
+      </thead>
+      <tbody>${rows}
+      </tbody>
+      <tfoot>
+      <tr>
+        <td></td>${ctas.map((x, i) => `<td${col(i)}>${x}</td>`).join('')}
+      </tr>
+      </tfoot>
+    </table>
+  </section>`;
+}
+
+const links = (site, t) => ({
+  bookHref: site.bookingUrl
+    ? esc(site.bookingUrl)
+    : `mailto:${esc(site.contactEmail)}?subject=${encodeURIComponent(t.flow.bookSubject)}`,
+  contactHref: `mailto:${esc(site.contactEmail)}?subject=${encodeURIComponent(t.compare.enterpriseSubject)}`
+});
+
 export function homePage({ site, t, lang, paths, alt }) {
   const s = t.start;
   const f = t.flow;
-  const bookHref = site.bookingUrl
-    ? esc(site.bookingUrl)
-    : `mailto:${esc(site.contactEmail)}?subject=${encodeURIComponent(f.bookSubject)}`;
+  const { bookHref, contactHref } = links(site, t);
   const body = `
 <form id="scan-form" class="flow" action="${esc(site.form.endpoint)}" method="post"
   data-endpoint="${esc(site.form.endpoint)}"
@@ -132,7 +175,8 @@ export function homePage({ site, t, lang, paths, alt }) {
   <p class="error" id="form-error" role="alert" hidden></p>
 </form>
 
-<section class="panel done" id="thanks" tabindex="-1" aria-labelledby="t-done" hidden>
+<section class="done" id="thanks" tabindex="-1" aria-labelledby="t-done" hidden>
+<div class="panel">
   <h2 id="t-done" class="title">${marked(f.doneTitleBefore, f.doneTitleMark, f.doneTitleAfter, UNDERLINE, 'mark line')}</h2>
   <ol class="timeline">
     <li><span class="dot on"></span><span><b>${esc(f.doneNow)}</b> · ${esc(f.doneNowBody)}</span></li>
@@ -143,6 +187,11 @@ export function homePage({ site, t, lang, paths, alt }) {
     <p>${esc(f.bookText)}</p>
     <a class="btn btn-yellow" href="${bookHref}">${esc(f.bookButton)}</a>
   </div>
+</div>
+<div class="compare-block">
+  <h3>${esc(t.compare.title)}</h3>
+  <p class="muted">${esc(t.compare.intro)}</p>${compareTable({ t, paths, bookHref, contactHref, done: true })}
+</div>
 </section>`;
 
   return layout({ site, t, lang, paths, alt, page: 'home', title: t.meta.title, description: t.meta.description, body });
@@ -177,23 +226,13 @@ export function howPage({ site, t, lang, paths, alt }) {
 }
 
 export function pricingPage({ site, t, lang, paths, alt }) {
-  const plans = t.pricing.plans
-    .map((p) => `
-    <li class="plan${p.featured ? ' featured' : ''}">
-      <h2>${esc(p.name)}</h2>
-      <span class="amount">${esc(p.price)}</span>
-      <ul>${p.features.map((x) => `<li>${esc(x)}</li>`).join('')}</ul>
-    </li>`)
-    .join('');
+  const { bookHref, contactHref } = links(site, t);
   const body = `
-<div class="page">
-  <h1>${esc(t.pricing.title)}</h1>
-  <p class="muted">${esc(t.pricing.intro)}</p>
-  <ul class="plans">${plans}
-  </ul>
-  ${cta(t, paths)}
+<div class="page wide">
+  <h1>${esc(t.compare.title)}</h1>
+  <p class="muted lead">${esc(t.compare.intro)}</p>${compareTable({ t, paths, bookHref, contactHref, done: false })}
 </div>`;
-  return layout({ site, t, lang, paths, alt, page: 'pricing', title: `${t.menu.pricing} – ${site.name}`, description: t.pricing.intro, body });
+  return layout({ site, t, lang, paths, alt, page: 'pricing', title: `${t.menu.pricing} – ${site.name}`, description: t.compare.intro, body });
 }
 
 export function faqPage({ site, t, lang, paths, alt }) {

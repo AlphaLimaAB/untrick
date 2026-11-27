@@ -13,7 +13,7 @@
   },
   "menu": {
     "how": "Så funkar det",
-    "pricing": "Priser",
+    "pricing": "Jämför planer",
     "faq": "Vanliga frågor",
     "contact": "Kontakt",
     "cta": "Gör en koll"
@@ -118,39 +118,94 @@
       }
     ]
   },
-  "pricing": {
-    "title": "Löpande bevakning",
-    "intro": "Sajter ändras varje vecka, och reglerna också. Med bevakning skannar vi om automatiskt och varnar när något bryter mot reglerna.",
+  "compare": {
+    "title": "Gratis koll eller bevakning?",
+    "intro": "Den gratis kollen visar var din butik står i dag. Sajter och regler ändras varje vecka, så bevakningen ser till att du fortsätter följa reglerna.",
+    "yes": "Ingår",
+    "no": "Ingår inte",
     "plans": [
       {
         "name": "Gratis koll",
         "price": "0 kr",
-        "featured": false,
-        "features": [
-          "En skanning av startsida, kassa och uppsägning",
-          "Rapport via e-post"
-        ]
+        "tagline": "Se var du står i dag",
+        "featured": false
       },
       {
         "name": "Bevakning",
-        "price": "från 1 500 kr/mån",
-        "featured": true,
-        "features": [
-          "Veckovis omskanning",
-          "Varning när regler eller sajten ändras",
-          "Svenska och engelska"
+        "price": "1 500 kr/mån",
+        "tagline": "Följ reglerna varje vecka",
+        "featured": true
+      },
+      {
+        "name": "Enterprise",
+        "price": "Offert",
+        "tagline": "Flera sajter, marknader och byråer",
+        "featured": false
+      }
+    ],
+    "rows": [
+      {
+        "label": "Granskning av sajten",
+        "values": [
+          "En gång",
+          "Varje vecka",
+          "Varje vecka"
         ]
       },
       {
-        "name": "Större bolag och byråer",
-        "price": "Offert",
-        "featured": false,
-        "features": [
-          "Flera sajter och marknader",
-          "Vit etikett för byråer"
+        "label": "Rapport med skärmbilder, regel och åtgärd",
+        "values": [
+          "yes",
+          "yes",
+          "yes"
+        ]
+      },
+      {
+        "label": "Kassan och ångerflödet",
+        "values": [
+          "En gång, om du vill",
+          "Varje vecka, via testkonto",
+          "Varje vecka, via testkonto"
+        ]
+      },
+      {
+        "label": "Larm när något på sajten bryter mot reglerna",
+        "values": [
+          "no",
+          "yes",
+          "yes"
+        ]
+      },
+      {
+        "label": "Larm när reglerna ändras, till exempel Digital Fairness Act",
+        "values": [
+          "no",
+          "yes",
+          "yes"
+        ]
+      },
+      {
+        "label": "Antal sajter",
+        "values": [
+          "1",
+          "1",
+          "Flera sajter och marknader"
+        ]
+      },
+      {
+        "label": "Vit etikett för byråer",
+        "values": [
+          "no",
+          "no",
+          "yes"
         ]
       }
-    ]
+    ],
+    "freeCta": "Gör en koll",
+    "freeDone": "Beställd",
+    "monitorCta": "Boka en genomgång",
+    "enterpriseCta": "Kontakta oss",
+    "enterpriseSubject": "Untrick Enterprise"
   },
   "faq": {
     "title": "Vanliga frågor",

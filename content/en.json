@@ -13,7 +13,7 @@
   },
   "menu": {
     "how": "How it works",
-    "pricing": "Pricing",
+    "pricing": "Compare plans",
     "faq": "FAQ",
     "contact": "Contact",
     "cta": "Run a check"
@@ -118,39 +118,94 @@
       }
     ]
   },
-  "pricing": {
-    "title": "Ongoing monitoring",
-    "intro": "Sites change every week, and so do the rules. With monitoring we rescan automatically and alert you when something breaks the rules.",
+  "compare": {
+    "title": "Free check or monitoring?",
+    "intro": "The free check shows where your shop stands today. Sites and rules change every week, so monitoring keeps you on the right side of them.",
+    "yes": "Included",
+    "no": "Not included",
     "plans": [
       {
         "name": "Free check",
         "price": "SEK 0",
-        "featured": false,
-        "features": [
-          "One scan of home page, checkout and cancellation",
-          "Report by email"
-        ]
+        "tagline": "See where you stand today",
+        "featured": false
       },
       {
         "name": "Monitoring",
-        "price": "from SEK 1,500/mo",
-        "featured": true,
-        "features": [
-          "Weekly rescans",
-          "Alerts when rules or your site change",
-          "Swedish and English"
+        "price": "SEK 1,500/mo",
+        "tagline": "Stay compliant every week",
+        "featured": true
+      },
+      {
+        "name": "Enterprise",
+        "price": "Quote",
+        "tagline": "Several sites, markets and agencies",
+        "featured": false
+      }
+    ],
+    "rows": [
+      {
+        "label": "Check of the site",
+        "values": [
+          "Once",
+          "Every week",
+          "Every week"
         ]
       },
       {
-        "name": "Larger companies and agencies",
-        "price": "Quote",
-        "featured": false,
-        "features": [
-          "Several sites and markets",
-          "White label for agencies"
+        "label": "Report with screenshots, rule and fix",
+        "values": [
+          "yes",
+          "yes",
+          "yes"
+        ]
+      },
+      {
+        "label": "Checkout and withdrawal flow",
+        "values": [
+          "Once, if you like",
+          "Every week, via a test account",
+          "Every week, via a test account"
+        ]
+      },
+      {
+        "label": "Alerts when something on the site breaks the rules",
+        "values": [
+          "no",
+          "yes",
+          "yes"
+        ]
+      },
+      {
+        "label": "Alerts when the rules change, such as the Digital Fairness Act",
+        "values": [
+          "no",
+          "yes",
+          "yes"
+        ]
+      },
+      {
+        "label": "Number of sites",
+        "values": [
+          "1",
+          "1",
+          "Several sites and markets"
+        ]
+      },
+      {
+        "label": "White label for agencies",
+        "values": [
+          "no",
+          "no",
+          "yes"
         ]
       }
-    ]
+    ],
+    "freeCta": "Run a check",
+    "freeDone": "Requested",
+    "monitorCta": "Book a walkthrough",
+    "enterpriseCta": "Contact us",
+    "enterpriseSubject": "Untrick Enterprise"
   },
   "faq": {
     "title": "FAQ",
