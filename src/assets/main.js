@@ -53,7 +53,8 @@
         url: fd.get('fi-url-website'),
         email: fd.get('fi-sender-email'),
         lang: fd.get('fi-text-language'),
-        consent: fd.get('fi-checkbox-consent')
+        consent: fd.get('fi-checkbox-consent'),
+        checkout: fd.get('fi-checkbox-checkout') === 'yes'
       })
     };
   }

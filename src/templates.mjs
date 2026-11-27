@@ -105,6 +105,10 @@ export function homePage({ site, t, lang, pagePath, altPath, altLang }) {
         <input id="consent" name="fi-checkbox-consent" type="checkbox" value="yes" required>
         <label for="consent">${esc(f.consent)} <a href="${t.privacyPath}">${esc(f.privacyLink)}</a></label>
       </div>
+      <div class="consent">
+        <input id="checkout" name="fi-checkbox-checkout" type="checkbox" value="yes">
+        <label for="checkout">${esc(f.checkoutConsent)}</label>
+      </div>
       <button class="btn" type="submit">${esc(f.submit)}</button>
       <p class="fine error" id="form-error" role="alert" hidden></p>
       <p class="fine">${esc(f.note)}</p>
