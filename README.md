@@ -1,6 +1,6 @@
 # Untrick website (untrick.eu)
 
-Landing page for a free automated check of online shops against EU consumer rules (withdrawal button, dark patterns, subscription flows, Digital Fairness Act readiness). Swedish at `/`, English at `/en/`.
+Landing page for a free automated check of online shops against EU consumer rules (withdrawal button, dark patterns, subscription flows, Digital Fairness Act readiness). Swedish at `/`, English at `/en/`. The start page is one search field and a three-step flow; "How it works", "Pricing", "FAQ" and the privacy policy are separate pages reached from the menu.
 
 - All visible text: `content/sv.json` and `content/en.json`
 - Brand, company details and form settings: `content/site.json`

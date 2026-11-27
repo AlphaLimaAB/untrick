@@ -17,7 +17,8 @@ Owner: Alpha Lima AB (Anton). The site is static: plain HTML, CSS and a small sc
 | `content/sv.json`, `content/en.json` | All visible text, one file per language, identical structure | Agents, freely (rules below) |
 | `content/site.json` | Brand name, company details, base URL, contact email, form provider and endpoint | Humans only, or agents with explicit approval |
 | `src/templates.mjs` | HTML layout; no visible text lives here | Agents, with care |
-| `src/assets/styles.css`, `src/assets/main.js` | Styling and the form script | Agents, with care |
+| `src/assets/styles.css`, `src/assets/main.js` | Styling, the menu and the three-step scan flow | Agents, with care |
+| `src/assets/fonts/` | Self-hosted Archivo font (licence file next to it); never load fonts from elsewhere | Agents, with care |
 | `scripts/build.mjs` | Builds `dist/` from content + templates | Rarely |
 | `scripts/check-*.mjs` | Automatic checks | Only to add checks, never to weaken them |
 | `.github/workflows/checks.yml` | Runs the checks on every pull request | Only to add checks, never to weaken them |

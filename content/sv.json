@@ -1,33 +1,77 @@
 {
   "meta": {
-    "title": "{name} – Gratis koll av din e-handel mot konsumentreglerna",
-    "description": "Gratis automatisk kontroll av ångerknapp, manipulativ design och prenumerationsflöden. Förbered dig för EU:s Digital Fairness Act."
+    "title": "{name} – Följer din butik konsumentreglerna? Gratis koll",
+    "description": "Ange din webbadress så går vi igenom ångerknappen, kassan och cookiebannern mot konsumentreglerna. Gratis rapport i mejlen inom 24 timmar."
   },
-  "nav": {
-    "otherLanguage": "English"
+  "ui": {
+    "skip": "Hoppa till innehållet",
+    "menu": "Meny",
+    "back": "Tillbaka",
+    "otherLanguage": "English",
+    "step": "Steg",
+    "of": "av"
   },
-  "hero": {
-    "eyebrow": "För e-handel och prenumerationstjänster",
-    "title": "Följer din e-handel de nya konsumentreglerna?",
-    "lede": "Gratis automatisk kontroll av ångerknappen, manipulativ design och ditt uppsägningsflöde. Du får en rapport med skärmbilder och konkreta åtgärder – utan att någon behöver logga in hos dig."
+  "menu": {
+    "how": "Så funkar det",
+    "pricing": "Jämför planer",
+    "faq": "Vanliga frågor",
+    "contact": "Kontakt",
+    "cta": "Gör en koll"
   },
-  "form": {
+  "start": {
+    "titleBefore": "Följer din butik ",
+    "titleMark": "konsumentreglerna",
+    "titleAfter": "?",
     "urlLabel": "Din webbplats",
-    "urlPlaceholder": "https://dinbutik.se",
-    "emailLabel": "E-post för rapporten",
-    "emailPlaceholder": "namn@foretag.se",
-    "consent": "Jag godkänner att {name} skannar sidan och skickar rapporten till min e-post. Vi använder adressen bara för rapporten och en uppföljning.",
-    "checkoutConsent": "Ni får gå igenom kassan fram till betalningen med {name}s egna testuppgifter, så att vi kan kontrollera tillval, totalpris och beställningsknappen. Vi lägger aldrig någon order. (Valfritt)",
-    "privacyLink": "Läs vår integritetspolicy",
-    "submit": "Skanna min webbplats gratis",
-    "note": "Endast för webbplatser du äger eller arbetar för – använd din jobbmejl. Rapporten kommer inom 24 timmar. Ingen kortuppgift, ingen förpliktelse.",
-    "errorInvalid": "Fyll i webbplats, e-post och kryssa i godkännandet.",
+    "urlPlaceholder": "dinbutik.se",
+    "submit": "Gör en koll",
+    "note": "Gratis · Ingen inloggning · Rapport i mejlen inom 24 timmar"
+  },
+  "flow": {
+    "emailTitle": "Vart ska rapporten?",
+    "emailLabel": "Din jobbmejl",
+    "emailPlaceholder": "namn@dinbutik.se",
+    "match": "Matchar webbplatsen",
+    "mismatch": "Mejlen matchar inte webbplatsen. Vi skickar bara rapporten till den som äger eller jobbar för sajten, så vi hör av oss och frågar först.",
+    "consent": "Jag godkänner att {name} granskar sajten och mejlar rapporten till mig.",
+    "privacyLink": "Integritetspolicy",
+    "next": "Fortsätt",
+    "extrasTitle": "Ska vi kolla hela vägen?",
+    "extrasIntro": "Frivilligt. Rapporten kommer ändå.",
+    "checkoutTitle": "Gå igenom kassan",
+    "checkoutBody": "Fram till betalningen, med {name}s egna uppgifter. Vi lägger aldrig någon order.",
+    "testTitle": "Jag lägger en testorder",
+    "testBody": "Då kollar vi ångerknappen hela vägen. Svara på vårt mejl med ordernumret.",
+    "submit": "Starta kollen",
+    "doneTitleBefore": "Klart. Vi har ",
+    "doneTitleMark": "börjat",
+    "doneTitleAfter": ".",
+    "doneNow": "Nu",
+    "doneNowBody": "vi har tagit emot din beställning",
+    "done24": "Inom 24 timmar",
+    "done24Body": "rapporten i din inkorg",
+    "doneTest": "Efter din testorder",
+    "doneTestBody": "ett tillägg om ångerflödet",
+    "bookText": "Vill du gå igenom fynden tillsammans? 15 minuter på video.",
+    "bookButton": "Boka en tid",
+    "bookSubject": "Genomgång av min Untrick-rapport",
+    "errorUrl": "Ange en webbadress, till exempel dinbutik.se.",
     "errorEmail": "Ange en giltig e-postadress.",
-    "errorUrl": "Ange en fullständig webbadress, till exempel https://dinbutik.se.",
+    "errorConsent": "Kryssa i godkännandet för att fortsätta.",
     "errorWait": "Vänta några sekunder och försök igen.",
-    "errorNetwork": "Något gick fel. Försök igen om en stund.",
-    "thanksTitle": "Tack! Vi är igång.",
-    "thanksBody": "Rapporten skickas till din e-post inom 24 timmar. Vill du att vi även kontrollerar ångerknappen? Lägg en testorder i din butik och svara på vårt mejl med ordernumret, så skickar vi ett tillägg till rapporten inom 24 timmar."
+    "errorNetwork": "Något gick fel. Försök igen om en stund."
+  },
+  "pages": {
+    "how": {
+      "slug": "sa-funkar-det"
+    },
+    "pricing": {
+      "slug": "priser"
+    },
+    "faq": {
+      "slug": "fragor"
+    },
+    "cta": "Gör en koll av din butik"
   },
   "checks": {
     "title": "Det här kontrollerar vi",
@@ -74,39 +118,94 @@
       }
     ]
   },
-  "pricing": {
-    "title": "Löpande bevakning",
-    "intro": "Sajter ändras varje vecka, och reglerna också. Med bevakning skannar vi om automatiskt och varnar när något bryter mot reglerna.",
+  "compare": {
+    "title": "Gratis koll eller bevakning?",
+    "intro": "Den gratis kollen visar var din butik står i dag. Sajter och regler ändras varje vecka, så bevakningen ser till att du fortsätter följa reglerna.",
+    "yes": "Ingår",
+    "no": "Ingår inte",
     "plans": [
       {
         "name": "Gratis koll",
         "price": "0 kr",
-        "featured": false,
-        "features": [
-          "En skanning av startsida, kassa och uppsägning",
-          "Rapport via e-post"
-        ]
+        "tagline": "Se var du står i dag",
+        "featured": false
       },
       {
         "name": "Bevakning",
-        "price": "från 1 500 kr/mån",
-        "featured": true,
-        "features": [
-          "Veckovis omskanning",
-          "Varning när regler eller sajten ändras",
-          "Svenska och engelska"
+        "price": "1 500 kr/mån",
+        "tagline": "Följ reglerna varje vecka",
+        "featured": true
+      },
+      {
+        "name": "Enterprise",
+        "price": "Offert",
+        "tagline": "Flera sajter, marknader och byråer",
+        "featured": false
+      }
+    ],
+    "rows": [
+      {
+        "label": "Granskning av sajten",
+        "values": [
+          "En gång",
+          "Varje vecka",
+          "Varje vecka"
         ]
       },
       {
-        "name": "Större bolag och byråer",
-        "price": "Offert",
-        "featured": false,
-        "features": [
-          "Flera sajter och marknader",
-          "Vit etikett för byråer"
+        "label": "Rapport med skärmbilder, regel och åtgärd",
+        "values": [
+          "yes",
+          "yes",
+          "yes"
+        ]
+      },
+      {
+        "label": "Kassan och ångerflödet",
+        "values": [
+          "En gång, om du vill",
+          "Varje vecka, via testkonto",
+          "Varje vecka, via testkonto"
+        ]
+      },
+      {
+        "label": "Larm när något på sajten bryter mot reglerna",
+        "values": [
+          "no",
+          "yes",
+          "yes"
+        ]
+      },
+      {
+        "label": "Larm när reglerna ändras, till exempel Digital Fairness Act",
+        "values": [
+          "no",
+          "yes",
+          "yes"
+        ]
+      },
+      {
+        "label": "Antal sajter",
+        "values": [
+          "1",
+          "1",
+          "Flera sajter och marknader"
+        ]
+      },
+      {
+        "label": "Vit etikett för byråer",
+        "values": [
+          "no",
+          "no",
+          "yes"
         ]
       }
-    ]
+    ],
+    "freeCta": "Gör en koll",
+    "freeDone": "Beställd",
+    "monitorCta": "Boka en genomgång",
+    "enterpriseCta": "Kontakta oss",
+    "enterpriseSubject": "Untrick Enterprise"
   },
   "faq": {
     "title": "Vanliga frågor",
@@ -129,7 +228,7 @@
       },
       {
         "q": "Vad gör ni i kassan?",
-        "a": "Bara om du kryssar i det i formuläret: vi lägger en vara i varukorgen och fyller i {name}s egna företagsuppgifter fram till betalningen, för att se tillval, totalpris och texten på beställningsknappen. Vi trycker aldrig på knappen och anger aldrig kortuppgifter eller någon annans personuppgifter. Utan ditt godkännande stannar vi vid kassans första steg."
+        "a": "Bara om du väljer det när du beställer: vi lägger en vara i varukorgen och fyller i {name}s egna företagsuppgifter fram till betalningen, för att se tillval, totalpris och texten på beställningsknappen. Vi trycker aldrig på knappen och anger aldrig kortuppgifter eller någon annans personuppgifter. Utan ditt godkännande stannar vi vid kassans första steg."
       },
       {
         "q": "Vad händer med min e-postadress?",
@@ -153,7 +252,7 @@
       },
       {
         "heading": "Vilka uppgifter vi samlar in",
-        "body": "När du beställer en gratis koll sparar vi webbadressen du anger, din e-postadress, valt språk, om du har godkänt att vi går igenom kassan och tidpunkten."
+        "body": "När du beställer en gratis koll sparar vi webbadressen du anger, din e-postadress, valt språk, om du har godkänt att vi går igenom kassan, om du tänker lägga en testorder och tidpunkten."
       },
       {
         "heading": "Varför och med vilken rättslig grund",
