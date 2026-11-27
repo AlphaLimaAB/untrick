@@ -10,7 +10,7 @@ import AxeBuilder from '@axe-core/playwright';
 
 const root = join(dirname(fileURLToPath(import.meta.url)), '..');
 const dist = join(root, 'dist');
-const types = { '.html': 'text/html', '.css': 'text/css', '.js': 'text/javascript', '.txt': 'text/plain', '.xml': 'application/xml' };
+const types = { '.html': 'text/html', '.css': 'text/css', '.js': 'text/javascript', '.txt': 'text/plain', '.xml': 'application/xml', '.svg': 'image/svg+xml', '.woff2': 'font/woff2' };
 
 const server = createServer((req, res) => {
   let file = join(dist, decodeURIComponent(req.url.split('?')[0]));

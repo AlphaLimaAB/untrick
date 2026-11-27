@@ -3,7 +3,7 @@
 import { readFileSync, writeFileSync, mkdirSync, rmSync, cpSync } from 'node:fs';
 import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { homePage, privacyPage } from '../src/templates.mjs';
+import { homePage, howPage, pricingPage, faqPage, privacyPage } from '../src/templates.mjs';
 
 const root = join(dirname(fileURLToPath(import.meta.url)), '..');
 const dist = join(root, 'dist');
@@ -28,7 +28,16 @@ function fill(value) {
 }
 
 const homePath = (lang) => (lang === site.defaultLanguage ? '/' : `/${lang}/`);
-const privacyPath = (lang, t) => `${homePath(lang)}${t.privacy.slug}/`;
+const pathsFor = (lang, t) => {
+  const home = homePath(lang);
+  return {
+    home,
+    how: `${home}${t.pages.how.slug}/`,
+    pricing: `${home}${t.pages.pricing.slug}/`,
+    faq: `${home}${t.pages.faq.slug}/`,
+    privacy: `${home}${t.privacy.slug}/`
+  };
+};
 
 function write(path, html) {
   const file = join(dist, path, 'index.html');
@@ -41,21 +50,17 @@ mkdirSync(dist, { recursive: true });
 cpSync(join(root, 'src/assets'), join(dist, 'assets'), { recursive: true });
 
 const texts = Object.fromEntries(site.languages.map((lang) => [lang, fill(readJson(`content/${lang}.json`))]));
-for (const lang of site.languages) texts[lang].privacyPath = privacyPath(lang, texts[lang]);
+const allPaths = Object.fromEntries(site.languages.map((lang) => [lang, pathsFor(lang, texts[lang])]));
+const templates = { home: homePage, how: howPage, pricing: pricingPage, faq: faqPage, privacy: privacyPage };
 
 const pages = [];
 for (const lang of site.languages) {
-  const t = texts[lang];
   const altLang = site.languages.find((l) => l !== lang);
-  const alt = texts[altLang];
-
-  const home = homePath(lang);
-  write(home, homePage({ site, t, lang, pagePath: home, altPath: homePath(altLang), altLang }));
-  pages.push(home);
-
-  const priv = privacyPath(lang, t);
-  write(priv, privacyPage({ site, t, lang, pagePath: priv, altPath: privacyPath(altLang, alt), altLang }));
-  pages.push(priv);
+  const args = { site, t: texts[lang], lang, paths: allPaths[lang], alt: { lang: altLang, paths: allPaths[altLang] } };
+  for (const [page, render] of Object.entries(templates)) {
+    write(allPaths[lang][page], render(args));
+    pages.push(allPaths[lang][page]);
+  }
 }
 
 writeFileSync(join(dist, 'robots.txt'), `User-agent: *\nAllow: /\n${site.baseUrl ? `Sitemap: ${site.baseUrl}/sitemap.xml\n` : ''}`);
