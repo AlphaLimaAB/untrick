@@ -17,6 +17,7 @@
     "emailLabel": "E-post för rapporten",
     "emailPlaceholder": "namn@foretag.se",
     "consent": "Jag godkänner att {name} skannar sidan och skickar rapporten till min e-post. Vi använder adressen bara för rapporten och en uppföljning.",
+    "checkoutConsent": "Ni får gå igenom kassan fram till betalningen med {name}s egna testuppgifter, så att vi kan kontrollera tillval, totalpris och beställningsknappen. Vi lägger aldrig någon order. (Valfritt)",
     "privacyLink": "Läs vår integritetspolicy",
     "submit": "Skanna min webbplats gratis",
     "note": "Endast för webbplatser du äger eller arbetar för – använd din jobbmejl. Rapporten kommer inom 24 timmar. Ingen kortuppgift, ingen förpliktelse.",
@@ -26,7 +27,7 @@
     "errorWait": "Vänta några sekunder och försök igen.",
     "errorNetwork": "Något gick fel. Försök igen om en stund.",
     "thanksTitle": "Tack! Vi är igång.",
-    "thanksBody": "Rapporten skickas till din e-post inom 24 timmar. Tips: lägg gärna en testorder i din butik och svara på vårt mejl med ordernumret – då kan vi även kontrollera ångerknappen, som ofta bara syns efter ett köp."
+    "thanksBody": "Rapporten skickas till din e-post inom 24 timmar. Vill du att vi även kontrollerar ångerknappen? Lägg en testorder i din butik och svara på vårt mejl med ordernumret, så skickar vi ett tillägg till rapporten inom 24 timmar."
   },
   "checks": {
     "title": "Det här kontrollerar vi",
@@ -124,7 +125,11 @@
       },
       {
         "q": "Varför ber ni om en testorder?",
-        "a": "Ångerknappen och bekräftelsen syns ofta först efter ett köp. Med en testorder från dig kan vi kontrollera hela flödet. Utan den skriver vi i rapporten att just den delen inte kunde kontrolleras."
+        "a": "Ångerknappen och bekräftelsen syns ofta först efter ett köp. Rapporten kommer inom 24 timmar ändå. Lägger du en testorder och skickar ordernumret kontrollerar vi hela flödet och skickar ett tillägg inom 24 timmar."
+      },
+      {
+        "q": "Vad gör ni i kassan?",
+        "a": "Bara om du kryssar i det i formuläret: vi lägger en vara i varukorgen och fyller i {name}s egna företagsuppgifter fram till betalningen, för att se tillval, totalpris och texten på beställningsknappen. Vi trycker aldrig på knappen och anger aldrig kortuppgifter eller någon annans personuppgifter. Utan ditt godkännande stannar vi vid kassans första steg."
       },
       {
         "q": "Vad händer med min e-postadress?",
@@ -148,7 +153,7 @@
       },
       {
         "heading": "Vilka uppgifter vi samlar in",
-        "body": "När du beställer en gratis koll sparar vi webbadressen du anger, din e-postadress, valt språk och tidpunkten."
+        "body": "När du beställer en gratis koll sparar vi webbadressen du anger, din e-postadress, valt språk, om du har godkänt att vi går igenom kassan och tidpunkten."
       },
       {
         "heading": "Varför och med vilken rättslig grund",

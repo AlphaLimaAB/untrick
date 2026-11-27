@@ -17,6 +17,7 @@
     "emailLabel": "Email for the report",
     "emailPlaceholder": "name@company.com",
     "consent": "I agree that {name} scans the site and emails me the report. We only use your address for the report and one follow-up.",
+    "checkoutConsent": "You may go through the checkout up to payment using {name}'s own test details, so we can check add-ons, the total price and the order button. We never place an order. (Optional)",
     "privacyLink": "Read our privacy policy",
     "submit": "Scan my website for free",
     "note": "Only for websites you own or work for – please use your work email. Report within 24 hours. No card, no commitment.",
@@ -26,7 +27,7 @@
     "errorWait": "Please wait a few seconds and try again.",
     "errorNetwork": "Something went wrong. Please try again shortly.",
     "thanksTitle": "Thanks! We're on it.",
-    "thanksBody": "Your report will arrive by email within 24 hours. Tip: place a test order in your shop and reply to our email with the order number – then we can also check the withdrawal button, which often only appears after a purchase."
+    "thanksBody": "Your report will arrive by email within 24 hours. Want us to check the withdrawal button as well? Place a test order in your shop and reply to our email with the order number, and we'll send an addendum to the report within 24 hours."
   },
   "checks": {
     "title": "What we check",
@@ -124,7 +125,11 @@
       },
       {
         "q": "Why do you ask for a test order?",
-        "a": "The withdrawal button and its confirmation often only appear after a purchase. A test order from you lets us check the whole flow. Without one, the report says that this part could not be checked."
+        "a": "The withdrawal button and its confirmation often only appear after a purchase. You get the report within 24 hours either way. If you place a test order and send us the order number, we check the whole flow and send an addendum within 24 hours."
+      },
+      {
+        "q": "What do you do in the checkout?",
+        "a": "Only if you tick the box in the form: we put an item in the cart and fill in {name}'s own company details up to payment, to see add-ons, the total price and the wording of the order button. We never press that button and never enter card details or anyone else's personal data. Without your permission we stop at the first step of the checkout."
       },
       {
         "q": "What happens to my email address?",
@@ -148,7 +153,7 @@
       },
       {
         "heading": "What we collect",
-        "body": "When you request a free check we store the web address you enter, your email address, your chosen language and the time."
+        "body": "When you request a free check, we store the website you enter, your email address, the language you chose, whether you allowed us to go through the checkout, and the time."
       },
       {
         "heading": "Why, and on what legal basis",
