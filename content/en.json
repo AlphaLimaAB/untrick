@@ -21,6 +21,9 @@
     "submit": "Scan my website for free",
     "note": "Report within 24 hours. No card, no commitment.",
     "errorInvalid": "Please enter a website, an email and tick the consent box.",
+    "errorEmail": "Please enter a valid email address.",
+    "errorUrl": "Please enter a full web address, like https://yourshop.com.",
+    "errorWait": "Please wait a few seconds and try again.",
     "errorNetwork": "Something went wrong. Please try again shortly.",
     "thanksTitle": "Thanks! We're on it.",
     "thanksBody": "Your report will arrive by email within 24 hours."

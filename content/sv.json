@@ -21,6 +21,9 @@
     "submit": "Skanna min webbplats gratis",
     "note": "Rapporten kommer inom 24 timmar. Ingen kortuppgift, ingen förpliktelse.",
     "errorInvalid": "Fyll i webbplats, e-post och kryssa i godkännandet.",
+    "errorEmail": "Ange en giltig e-postadress.",
+    "errorUrl": "Ange en fullständig webbadress, till exempel https://dinbutik.se.",
+    "errorWait": "Vänta några sekunder och försök igen.",
     "errorNetwork": "Något gick fel. Försök igen om en stund.",
     "thanksTitle": "Tack! Vi är igång.",
     "thanksBody": "Rapporten skickas till din e-post inom 24 timmar."
