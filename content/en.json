@@ -19,7 +19,7 @@
     "consent": "I agree that {name} scans the site and emails me the report. We only use your address for the report and one follow-up.",
     "privacyLink": "Read our privacy policy",
     "submit": "Scan my website for free",
-    "note": "Report within 24 hours. No card, no commitment.",
+    "note": "Only for websites you own or work for – please use your work email. Report within 24 hours. No card, no commitment.",
     "errorInvalid": "Please enter a website, an email and tick the consent box.",
     "errorEmail": "Please enter a valid email address.",
     "errorUrl": "Please enter a full web address, like https://yourshop.com.",
@@ -117,6 +117,10 @@
       {
         "q": "Do you need access to our systems?",
         "a": "No. We only look at what an ordinary customer sees on your site."
+      },
+      {
+        "q": "Can I request a check of someone else's website?",
+        "a": "No. The free report is only sent to people who own or work for the website. We check this before sending."
       },
       {
         "q": "What happens to my email address?",

@@ -19,7 +19,7 @@
     "consent": "Jag godkänner att {name} skannar sidan och skickar rapporten till min e-post. Vi använder adressen bara för rapporten och en uppföljning.",
     "privacyLink": "Läs vår integritetspolicy",
     "submit": "Skanna min webbplats gratis",
-    "note": "Rapporten kommer inom 24 timmar. Ingen kortuppgift, ingen förpliktelse.",
+    "note": "Endast för webbplatser du äger eller arbetar för – använd din jobbmejl. Rapporten kommer inom 24 timmar. Ingen kortuppgift, ingen förpliktelse.",
     "errorInvalid": "Fyll i webbplats, e-post och kryssa i godkännandet.",
     "errorEmail": "Ange en giltig e-postadress.",
     "errorUrl": "Ange en fullständig webbadress, till exempel https://dinbutik.se.",
@@ -117,6 +117,10 @@
       {
         "q": "Behöver ni tillgång till våra system?",
         "a": "Nej. Vi tittar bara på det en vanlig kund ser på er sajt."
+      },
+      {
+        "q": "Kan jag beställa en koll av någon annans webbplats?",
+        "a": "Nej. Den kostnadsfria rapporten skickas bara till den som äger eller arbetar för webbplatsen. Vi kontrollerar det innan vi skickar."
       },
       {
         "q": "Vad händer med min e-postadress?",
