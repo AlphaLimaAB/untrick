@@ -93,13 +93,16 @@ export function homePage({ site, t, lang, pagePath, altPath, altLang }) {
       data-endpoint="${esc(site.form.endpoint)}"
       data-provider="${esc(site.form.provider)}"
       data-error-invalid="${esc(f.errorInvalid)}"
-      data-error-network="${esc(f.errorNetwork)}">
+      data-error-network="${esc(f.errorNetwork)}"
+      data-error-email="${esc(f.errorEmail)}"
+      data-error-url="${esc(f.errorUrl)}"
+      data-error-wait="${esc(f.errorWait)}">
       <label for="url">${esc(f.urlLabel)}</label>
-      <input id="url" name="url" type="url" inputmode="url" autocomplete="url" placeholder="${esc(f.urlPlaceholder)}" required>
+      <input id="url" name="fi-url-website" type="url" inputmode="url" autocomplete="url" placeholder="${esc(f.urlPlaceholder)}" required>
       <label for="email">${esc(f.emailLabel)}</label>
-      <input id="email" name="email" type="email" autocomplete="email" placeholder="${esc(f.emailPlaceholder)}" required>
+      <input id="email" name="fi-sender-email" type="email" autocomplete="email" placeholder="${esc(f.emailPlaceholder)}" required>
       <div class="consent">
-        <input id="consent" name="consent" type="checkbox" required>
+        <input id="consent" name="fi-checkbox-consent" type="checkbox" value="yes" required>
         <label for="consent">${esc(f.consent)} <a href="${t.privacyPath}">${esc(f.privacyLink)}</a></label>
       </div>
       <button class="btn" type="submit">${esc(f.submit)}</button>
