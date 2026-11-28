@@ -43,6 +43,82 @@
   let current = 1;
   let sending = false;
 
+  // ---- Instant check: starts when the website is entered, shown on the last step to site owners ----
+  const scanner = d.scanner || '';
+  const quick = document.getElementById('quick');
+  let scanId = null;
+  let scanFor = '';
+  function startScan(url) {
+    if (!scanner || !url || url === scanFor) return;
+    scanFor = url;
+    scanId = null;
+    fetch(scanner, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ url: url }) })
+      .then((r) => (r.ok ? r.json() : null))
+      .then((b) => { if (b && b.id) scanId = b.id; })
+      .catch(() => {});
+  }
+  function detailText(c, q) {
+    const x = c.detail || {};
+    if (c.rule === 'UT-10') return c.result === 'problem' ? q.noReject : x.accept && x.reject ? '"' + x.accept + '" / "' + x.reject + '"' : '';
+    if (c.rule === 'UT-01' || c.rule === 'UT-13') return x.link ? q.found + ' "' + x.link + '"' : q.noLink;
+    if (c.rule === 'UT-12') return typeof x.serious === 'number' ? x.serious + ' ' + q.seriousErrors : '';
+    if (c.rule === 'UT-14') return x.words && x.words.length ? q.found + ' ' + x.words.map((w) => '"' + w + '"').join(', ') : q.noGreen;
+    if (c.rule === 'UT-17') return c.result === 'ok' ? q.orgFound : q.orgMissing;
+    return '';
+  }
+  function showQuick(email) {
+    if (!quick || !scanner || !scanFor) return;
+    const q = JSON.parse(quick.dataset.i18n || '{}');
+    const status = quick.querySelector('.quick-status');
+    const scoreBox = quick.querySelector('.score');
+    const list = quick.querySelector('.quick-list');
+    quick.hidden = false;
+    const started = Date.now();
+    const fail = (text) => { status.textContent = text; status.hidden = false; };
+    function poll() {
+      if (!scanId) {
+        if (Date.now() - started > 15000) return fail(q.failed);
+        return setTimeout(poll, 1000);
+      }
+      fetch(scanner + '/' + scanId + '?email=' + encodeURIComponent(email))
+        .then((r) => (r.ok ? r.json() : Promise.reject(new Error(String(r.status)))))
+        .then((b) => {
+          if (b.status === 'queued' || b.status === 'running') {
+            if (Date.now() - started > 90000) return fail(q.failed);
+            return setTimeout(poll, 2000);
+          }
+          if (!b.verified) return fail(q.unverified);
+          if (b.status !== 'done') return fail(q.failed);
+          status.hidden = true;
+          if (typeof b.score === 'number') {
+            scoreBox.querySelector('.score-num').textContent = String(b.score);
+            scoreBox.hidden = false;
+          }
+          list.textContent = '';
+          (b.checks || []).forEach((c) => {
+            const li = document.createElement('li');
+            const name = document.createElement('span');
+            name.className = 'q-name';
+            name.textContent = q['r_' + c.rule.replace('-', '')] || c.rule;
+            const res = document.createElement('span');
+            res.className = 'q-res q-' + c.result;
+            res.textContent = q[c.result] || c.result;
+            li.append(name, res);
+            const text = detailText(c, q);
+            if (text) {
+              const det = document.createElement('span');
+              det.className = 'q-detail';
+              det.textContent = text;
+              li.append(det);
+            }
+            list.append(li);
+          });
+        })
+        .catch(() => fail(q.failed));
+    }
+    poll();
+  }
+
   // Forminit names the failing field in fieldName or as the first quoted word of message.
   const FIELD_ERRORS = { 'sender.email': d.errorEmail, website: d.errorUrl };
   function errorText(body, status) {
@@ -163,6 +239,7 @@
       thanks.hidden = false;
       window.scrollTo(0, 0);
       thanks.focus();
+      showQuick(emailInput.value.trim());
     } catch (e) {
       console.error('Form submission failed:', e);
       showError(d.errorNetwork);
@@ -177,6 +254,7 @@
     if (sending) return;
     if (current === 1) {
       if (!normaliseUrl(urlInput.value)) return showError(d.errorUrl, urlInput);
+      startScan(normaliseUrl(urlInput.value));
       checkMatch();
       return show(2, true);
     }

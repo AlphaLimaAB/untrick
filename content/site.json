@@ -20,5 +20,8 @@
     "provider": "goatcounter",
     "endpoint": "https://betting-pi.tail689e03.ts.net/count",
     "script": "https://betting-pi.tail689e03.ts.net/count.js"
+  },
+  "scanner": {
+    "endpoint": "https://betting-pi.tail689e03.ts.net/scan"
   }
 }

@@ -25,7 +25,8 @@
     "urlLabel": "Din webbplats",
     "urlPlaceholder": "dinbutik.se",
     "submit": "Gör en koll",
-    "note": "Gratis · Ingen inloggning · Rapport i mejlen inom 24 timmar"
+    "note": "Gratis · Ingen inloggning · Rapport i mejlen inom 24 timmar",
+    "areas": "Ångerrätt · Priser · Kassa · Cookies · Tillgänglighet · Miljöpåståenden · Recensioner"
   },
   "flow": {
     "emailTitle": "Vart ska rapporten?",
@@ -59,7 +60,32 @@
     "errorEmail": "Ange en giltig e-postadress.",
     "errorConsent": "Kryssa i godkännandet för att fortsätta.",
     "errorWait": "Vänta några sekunder och försök igen.",
-    "errorNetwork": "Något gick fel. Försök igen om en stund."
+    "errorNetwork": "Något gick fel. Försök igen om en stund.",
+    "quick": {
+      "title": "Snabbkollen",
+      "running": "Vi kör de automatiska kontrollerna av startsidan…",
+      "scoreLabel": "poäng av 100",
+      "note": "Automatiska kontroller av startsidan. Rapporten går igenom hela köpflödet.",
+      "unverified": "Vi visar snabbkollen när vi har bekräftat att sajten är din. Rapporten kommer ändå inom 24 timmar.",
+      "failed": "Snabbkollen kunde inte läsa sajten just nu. Vi går igenom den för hand i rapporten.",
+      "ok": "Ser bra ut",
+      "problem": "Behöver åtgärdas",
+      "check": "Behöver kontrolleras",
+      "unknown": "Kunde inte kontrolleras",
+      "found": "Hittade:",
+      "seriousErrors": "allvarliga fel",
+      "noReject": "Ingen knapp för att neka på första skärmen",
+      "noLink": "Ingen länk hittades",
+      "r_UT10": "Cookiebannern",
+      "r_UT01": "Länk till ångerfunktionen",
+      "r_UT12": "Tillgänglighet på startsidan",
+      "r_UT13": "Information om tillgänglighet",
+      "r_UT14": "Miljöpåståenden",
+      "r_UT17": "Företagsuppgifter",
+      "noGreen": "Inga allmänna miljöpåståenden",
+      "orgFound": "Organisationsnummer visas",
+      "orgMissing": "Hittade inget organisationsnummer"
+    }
   },
   "pages": {
     "how": {
@@ -75,7 +101,7 @@
   },
   "checks": {
     "title": "Det här kontrollerar vi",
-    "intro": "Vi går igenom köp-, registrerings- och uppsägningsflödet på samma sätt som en kund – och jämför mot reglerna.",
+    "intro": "Sju områden och drygt 20 kontroller. Vi går igenom startsida, produktsidor, kassa, ångerflöde och villkor på samma sätt som en kund, och jämför med reglerna.",
     "tagNow": "Gäller nu",
     "tagSoon": "På väg",
     "items": [
@@ -86,6 +112,16 @@
       },
       {
         "status": "now",
+        "title": "Priser och rabatter",
+        "body": "Att ett nedsatt pris visar det lägsta priset de senaste 30 dagarna, och att hela priset med frakt och avgifter syns innan beställningen."
+      },
+      {
+        "status": "now",
+        "title": "Cookiebannern",
+        "body": "Att det är lika lätt att neka som att godkänna kakor redan på första skärmen, utan förkryssade val."
+      },
+      {
+        "status": "now",
         "title": "Vilseledande design",
         "body": "Falsk brådska (\"bara 2 kvar\"), förkryssade tillval, dolda avgifter i sista steget och \"nej tack\"-knappar som skuldbelägger."
       },
@@ -93,6 +129,21 @@
         "status": "now",
         "title": "Prenumerationer",
         "body": "Hur lätt det är att säga upp jämfört med att teckna, och hur provperioder och förnyelser kommuniceras."
+      },
+      {
+        "status": "now",
+        "title": "Tillgänglighet",
+        "body": "Sedan 28 juni 2025 ska e-handel kunna användas av alla, oavsett funktionsförmåga. Vi testar sajten automatiskt mot WCAG och kontrollerar att ni informerar om tillgängligheten."
+      },
+      {
+        "status": "now",
+        "title": "Miljöpåståenden",
+        "body": "Från 27 september 2026 förbjuder EU-reglerna allmänna påståenden som \"miljövänlig\" eller \"klimatneutral\" om ni inte kan visa ett erkänt utmärkt miljöresultat. Vi letar upp dem åt dig."
+      },
+      {
+        "status": "now",
+        "title": "Recensioner och företagsuppgifter",
+        "body": "Att ni berättar om och hur recensionerna kontrolleras, och att företagsnamn, organisationsnummer och kontaktuppgifter syns."
       },
       {
         "status": "soon",
@@ -145,6 +196,14 @@
     ],
     "rows": [
       {
+        "label": "Snabbkoll med poäng direkt",
+        "values": [
+          "yes",
+          "yes",
+          "yes"
+        ]
+      },
+      {
         "label": "Granskning av sajten",
         "values": [
           "En gång",
@@ -177,7 +236,23 @@
         ]
       },
       {
-        "label": "Larm när reglerna ändras, till exempel Digital Fairness Act",
+        "label": "Vi kontrollerar att era rättningar fungerar",
+        "values": [
+          "no",
+          "yes",
+          "yes"
+        ]
+      },
+      {
+        "label": "Bevisarkiv med daterade skärmbilder",
+        "values": [
+          "no",
+          "yes",
+          "yes"
+        ]
+      },
+      {
+        "label": "Regelradar: nya regler förklarade innan de gäller",
         "values": [
           "no",
           "yes",
@@ -205,7 +280,8 @@
     "freeDone": "Beställd",
     "monitorCta": "Boka en genomgång",
     "enterpriseCta": "Kontakta oss",
-    "enterpriseSubject": "Untrick Enterprise"
+    "enterpriseSubject": "Untrick Enterprise",
+    "risk": "Bryter butiken mot konsumentreglerna kan domstolen, på Konsumentombudsmannens begäran, döma ut en sanktionsavgift på upp till fyra procent av omsättningen."
   },
   "faq": {
     "title": "Vanliga frågor",
@@ -252,7 +328,7 @@
       },
       {
         "heading": "Vilka uppgifter vi samlar in",
-        "body": "När du beställer en gratis koll sparar vi webbadressen du anger, din e-postadress, valt språk, om du har godkänt att vi går igenom kassan, om du tänker lägga en testorder och tidpunkten."
+        "body": "När du beställer en gratis koll sparar vi webbadressen du anger, din e-postadress, valt språk, om du har godkänt att vi går igenom kassan, om du tänker lägga en testorder och tidpunkten. Anger du en webbadress gör vi också en automatisk snabbkoll av sajtens startsida på vår egen server i Sverige. Adressen och resultatet sparas i högst två timmar och kopplas inte till dig."
       },
       {
         "heading": "Varför och med vilken rättslig grund",
