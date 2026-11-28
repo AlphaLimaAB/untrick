@@ -1,7 +1,7 @@
 {
   "meta": {
     "title": "{name} – Does your shop follow consumer law? Free check",
-    "description": "Enter your domain and we check the withdrawal button, checkout and cookie banner against consumer law. Free report by email within 24 hours."
+    "description": "Enter your domain and we check the withdrawal button, checkout and cookie banner against consumer law. Free results by email within 24 hours."
   },
   "ui": {
     "skip": "Skip to content",
@@ -25,20 +25,20 @@
     "urlLabel": "Your domain",
     "urlPlaceholder": "yourshop.com",
     "submit": "Run a check",
-    "note": "Free · No login · Report by email within 24 hours",
-    "areas": "Withdrawal · Prices · Checkout · Cookies · Accessibility · Green claims · Reviews"
+    "note": "Free · No login · Results by email within 24 hours",
+    "areas": "We check withdrawal, prices, checkout, cookies, accessibility, environmental claims, reviews and company details."
   },
   "flow": {
-    "emailTitle": "Where should the report go?",
+    "emailTitle": "Where should we send the results?",
     "emailLabel": "Your work email",
     "emailPlaceholder": "name@yourshop.com",
     "match": "Matches the website",
-    "mismatch": "This email doesn't match the website. We only send the report to people who own or work for the site, so we'll get in touch and ask first.",
-    "consent": "I agree that {name} checks the site and emails me the report.",
+    "mismatch": "This email doesn't match the website. We only send the results to people who own or work for the site, so we'll get in touch and ask first.",
+    "consent": "I agree that {name} checks the site and emails me the results.",
     "privacyLink": "Privacy policy",
     "next": "Continue",
     "extrasTitle": "Shall we check all the way?",
-    "extrasIntro": "Optional. You get the report either way.",
+    "extrasIntro": "Optional. You get the results either way.",
     "checkoutTitle": "Go through the checkout",
     "checkoutBody": "Up to payment, with {name}'s own details. We never place an order.",
     "testTitle": "I'll place a test order",
@@ -50,12 +50,12 @@
     "doneNow": "Now",
     "doneNowBody": "we've received your request",
     "done24": "Within 24 hours",
-    "done24Body": "the report in your inbox",
+    "done24Body": "the results in your inbox",
     "doneTest": "After your test order",
     "doneTestBody": "an addendum on the withdrawal flow",
     "bookText": "Want to go through the results together? 15 minutes on video.",
     "bookButton": "Book a walk-through",
-    "bookSubject": "Walkthrough of my Untrick report",
+    "bookSubject": "Walk-through of my Untrick results",
     "errorUrl": "Enter a domain, for example yourshop.com.",
     "errorEmail": "Please enter a valid email address.",
     "errorConsent": "Please tick the consent box to continue.",
@@ -65,9 +65,9 @@
       "title": "Instant check",
       "running": "Running the automatic checks of your home page…",
       "scoreLabel": "points out of 100",
-      "note": "Automatic checks of the home page. The report covers the whole purchase flow.",
-      "unverified": "We'll show the instant check once we've confirmed the site is yours. The report still arrives within 24 hours.",
-      "failed": "The instant check couldn't read the site right now. We'll go through it by hand in the report.",
+      "note": "Automatic checks of the home page. The full results cover the whole purchase flow.",
+      "unverified": "We'll show the instant check once we've confirmed the site is yours. The results still arrive within 24 hours.",
+      "failed": "The instant check couldn't read the site right now. We'll go through the site by hand instead, and you get the results within 24 hours.",
       "ok": "Looks good",
       "problem": "Needs fixing",
       "check": "Needs checking",
@@ -212,7 +212,7 @@
         ]
       },
       {
-        "label": "Report with issues and fixes",
+        "label": "Results with issues and fixes",
         "values": [
           "yes",
           "yes",
@@ -268,7 +268,7 @@
         ]
       },
       {
-        "label": "Reports under the agency's own brand",
+        "label": "Results under the agency's own brand",
         "values": [
           "no",
           "no",
@@ -288,7 +288,7 @@
     "items": [
       {
         "q": "Is this legal advice?",
-        "a": "No. {name} checks online shops against consumer law and shows where a site falls short. The report does not replace legal advice on a specific case."
+        "a": "No. {name} checks online shops against consumer law and shows where a site falls short. The results do not replace legal advice on a specific case."
       },
       {
         "q": "Do you need access to our systems?",
@@ -296,11 +296,11 @@
       },
       {
         "q": "Can I request a check of someone else's website?",
-        "a": "No. The free report is only sent to people who own or work for the website. We check this before sending."
+        "a": "No. The free results are only sent to people who own or work for the website. We check this before sending."
       },
       {
         "q": "Why do you ask for a test order?",
-        "a": "The withdrawal button and its confirmation often only appear after a purchase. You get the report within 24 hours either way. If you place a test order and send us the order number, we check the whole flow and send an addendum within 24 hours."
+        "a": "The withdrawal button and its confirmation often only appear after a purchase. You get the results within 24 hours either way. If you place a test order and send us the order number, we check the whole flow and send an addendum within 24 hours."
       },
       {
         "q": "What do you do in the checkout?",
@@ -308,7 +308,7 @@
       },
       {
         "q": "What happens to my email address?",
-        "a": "It is used for the report and one follow-up. Data is stored in the EU. You can ask us to delete it any time."
+        "a": "It is used for the results and one follow-up. Data is stored in the EU. You can ask us to delete it any time."
       }
     ]
   },
@@ -332,11 +332,11 @@
       },
       {
         "heading": "Why, and on what legal basis",
-        "body": "We use the details to prepare and send the report, to answer your messages and for one follow-up. The legal basis is your consent, which you can withdraw at any time."
+        "body": "We use the details to prepare and send the results, to answer your messages and for one follow-up. The legal basis is your consent, which you can withdraw at any time."
       },
       {
         "heading": "Where the data is stored and for how long",
-        "body": "The data is stored with our form provider inside the EU. We delete it no later than 12 months after the report is sent or we have replied to you, or earlier if you ask us to."
+        "body": "The data is stored with our form provider inside the EU. We delete it no later than 12 months after the results are sent or we have replied to you, or earlier if you ask us to."
       },
       {
         "heading": "Cookies and visitor statistics",
@@ -360,7 +360,7 @@
       },
       {
         "value": "review",
-        "label": "Go through my report"
+        "label": "Go through my results"
       },
       {
         "value": "enterprise",
