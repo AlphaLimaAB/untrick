@@ -18,6 +18,13 @@
     });
   }
 
+  // Count flow steps as events in our self-hosted GoatCounter (no cookies). Does nothing if it isn't loaded.
+  function track(path) {
+    if (window.goatcounter && window.goatcounter.count) {
+      window.goatcounter.count({ path: path, title: path, event: true });
+    }
+  }
+
   const form = document.getElementById('scan-form');
   if (!form) return;
   form.noValidate = true; // we validate per step and show our own messages
@@ -77,7 +84,10 @@
     current = step;
     clearError();
     steps.forEach((s) => s.classList.toggle('is-active', Number(s.dataset.step) === step));
-    if (push) history.pushState({ step: step }, '');
+    if (push) {
+      history.pushState({ step: step }, '');
+      track('flow-step-' + step);
+    }
     window.scrollTo(0, 0);
     const first = steps[step - 1].querySelector('input');
     if (step > 1 && first) first.focus();
@@ -141,12 +151,14 @@
         const ok = provider === 'forminit' ? response.ok && typeof hashId === 'string' : response.ok;
         if (!ok) {
           console.error('Form submission failed:', response.status, body);
+          track('flow-error');
           showError(errorText(body, response.status));
           return; // keep the visitor's input
         }
       }
       const testLine = thanks.querySelector('[data-if-testorder]');
       if (testLine) testLine.hidden = !document.getElementById('testorder').checked;
+      track('flow-done');
       form.hidden = true;
       thanks.hidden = false;
       window.scrollTo(0, 0);

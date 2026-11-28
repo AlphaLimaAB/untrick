@@ -8,7 +8,7 @@ The public website for a consumer-law compliance monitor for Nordic e-commerce a
 
 Owner: Alpha Lima AB (Anton). The site is static: plain HTML, CSS and a small script, built by a Node script with no dependencies.
 
-**The product sells compliance, so this site must itself be compliant.** No cookies, no third-party tracking, no pre-ticked boxes, no fake urgency, no hidden costs, no manipulative wording. If a change would fail our own scan, don't make it.
+**The product sells compliance, so this site must itself be compliant.** No cookies, no third-party tracking (the only analytics is our own self-hosted, cookie-free GoatCounter, set in `content/site.json`), no pre-ticked boxes, no fake urgency, no hidden costs, no manipulative wording. If a change would fail our own scan, don't make it.
 
 ## Repository map
 
@@ -63,7 +63,7 @@ The accessibility check needs a browser: run `npx playwright install chromium` o
 
 ## Never
 
-- Add cookies, analytics, pixels, chat widgets or any third-party script.
+- Add cookies, pixels, chat widgets, any third-party script, or analytics other than our self-hosted GoatCounter.
 - Pre-tick consent boxes or make the "no" option harder to find than "yes".
 - Commit secrets, API keys, `.env` files or visitor data. Form submissions live with the form provider, never in this repository.
 - Weaken, skip or delete a check to make CI pass. Fix the cause instead.
