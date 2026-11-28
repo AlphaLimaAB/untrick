@@ -1,7 +1,7 @@
 {
   "meta": {
-    "title": "{name} – Följer din butik konsumentreglerna? Gratis koll",
-    "description": "Ange ditt domännamn så kontrollerar vi ångerknappen, kassan och cookiebannern mot konsumentreglerna. Gratis rapport i mejlen inom 24 timmar."
+    "title": "{name} – Följer er butik konsumentreglerna? Gratis koll",
+    "description": "Ange ert domännamn så kontrollerar vi ångerknappen, kassan och cookiebannern mot konsumentreglerna. Gratis rapport i mejlen inom 24 timmar."
   },
   "ui": {
     "skip": "Hoppa till innehållet",
@@ -19,10 +19,10 @@
     "cta": "Gör en koll"
   },
   "start": {
-    "titleBefore": "Följer din butik ",
+    "titleBefore": "Följer er butik ",
     "titleMark": "konsumentreglerna",
     "titleAfter": "?",
-    "urlLabel": "Ditt domännamn",
+    "urlLabel": "Ert domännamn",
     "urlPlaceholder": "dinbutik.se",
     "submit": "Gör en koll",
     "note": "Gratis · Ingen inloggning · Rapport i mejlen inom 24 timmar",
@@ -30,7 +30,7 @@
   },
   "flow": {
     "emailTitle": "Vart ska rapporten?",
-    "emailLabel": "Din jobbmejl",
+    "emailLabel": "Jobbmejl",
     "emailPlaceholder": "namn@dinbutik.se",
     "match": "Matchar webbplatsen",
     "mismatch": "Mejlen matchar inte webbplatsen. Vi skickar bara rapporten till den som äger eller jobbar för sajten, så vi hör av oss och frågar först.",
@@ -48,12 +48,12 @@
     "doneTitleMark": "börjat",
     "doneTitleAfter": ".",
     "doneNow": "Nu",
-    "doneNowBody": "vi har tagit emot din beställning",
+    "doneNowBody": "vi har tagit emot er beställning",
     "done24": "Inom 24 timmar",
-    "done24Body": "rapporten i din inkorg",
-    "doneTest": "Efter din testorder",
+    "done24Body": "rapporten i er inkorg",
+    "doneTest": "Efter er testorder",
     "doneTestBody": "ett tillägg om ångerflödet",
-    "bookText": "Vill du gå igenom resultatet tillsammans? 15 minuter på video.",
+    "bookText": "Vill ni gå igenom resultatet tillsammans? 15 minuter på video.",
     "bookButton": "Boka en genomgång",
     "bookSubject": "Genomgång av min Untrick-rapport",
     "errorUrl": "Ange ett domännamn, till exempel dinbutik.se.",
@@ -66,7 +66,7 @@
       "running": "Vi kör de automatiska kontrollerna av startsidan…",
       "scoreLabel": "poäng av 100",
       "note": "Automatiska kontroller av startsidan. Rapporten går igenom hela köpflödet.",
-      "unverified": "Vi visar snabbkollen när vi har bekräftat att sajten är din. Rapporten kommer ändå inom 24 timmar.",
+      "unverified": "Vi visar snabbkollen när vi har bekräftat att sajten är er. Rapporten kommer ändå inom 24 timmar.",
       "failed": "Snabbkollen kunde inte läsa sajten just nu. Vi går igenom den för hand i rapporten.",
       "ok": "Ser bra ut",
       "problem": "Behöver åtgärdas",
@@ -97,7 +97,7 @@
     "faq": {
       "slug": "fragor"
     },
-    "cta": "Gör en koll av din domän"
+    "cta": "Gör en koll av er domän"
   },
   "checks": {
     "title": "Det här kontrollerar vi",
@@ -156,7 +156,7 @@
     "title": "Så fungerar det",
     "steps": [
       {
-        "title": "Ange ditt domännamn",
+        "title": "Ange ert domännamn",
         "body": "Utan installation och inloggning."
       },
       {
@@ -164,21 +164,21 @@
         "body": "Automatiska tester och en genomgång av hela köpflödet, från startsidan till kassan. Varje fynd kopplas till en bestämd regel i konsumentlagstiftningen."
       },
       {
-        "title": "Du vet exakt vad du ska ändra",
-        "body": "För varje brist: vad som är fel, vilken regel som gäller, hur allvarligt det är och hur du åtgärdar det. Med en skärmdump som underlag."
+        "title": "Ni vet exakt vad ni ska ändra",
+        "body": "För varje brist: vad som är fel, vilken regel som gäller, hur allvarligt det är och hur ni åtgärdar det. Med en skärmdump som underlag."
       }
     ]
   },
   "compare": {
     "title": "Gratis koll eller bevakning?",
-    "intro": "Den gratis kollen visar var din butik står i dag. Sajter och regler ändras hela tiden. Med bevakningen kontrollerar vi butiken varje vecka och larmar när något behöver åtgärdas.",
+    "intro": "Den gratis kollen visar var er butik står i dag. Sajter och regler ändras hela tiden. Med bevakningen kontrollerar vi butiken varje vecka och larmar när något behöver åtgärdas.",
     "yes": "Ingår",
     "no": "Ingår inte",
     "plans": [
       {
         "name": "Gratis koll",
         "price": "0 kr",
-        "tagline": "Se var du står i dag",
+        "tagline": "Se var ni står i dag",
         "featured": false
       },
       {
@@ -222,7 +222,7 @@
       {
         "label": "Kassan och ångerflödet",
         "values": [
-          "En gång, om du vill",
+          "En gång, om ni vill",
           "Varje vecka, via testkonto",
           "Varje vecka, via testkonto"
         ]
@@ -300,15 +300,15 @@
       },
       {
         "q": "Varför ber ni om en testorder?",
-        "a": "Ångerknappen och bekräftelsen syns ofta först efter ett köp. Rapporten kommer inom 24 timmar ändå. Lägger du en testorder och skickar ordernumret kontrollerar vi hela flödet och skickar ett tillägg inom 24 timmar."
+        "a": "Ångerknappen och bekräftelsen syns ofta först efter ett köp. Rapporten kommer inom 24 timmar ändå. Lägger ni en testorder och skickar ordernumret kontrollerar vi hela flödet och skickar ett tillägg inom 24 timmar."
       },
       {
         "q": "Vad gör ni i kassan?",
-        "a": "Bara om du väljer det när du beställer: vi lägger en vara i varukorgen och fyller i {name}s egna företagsuppgifter fram till betalningen, för att se tillval, totalpris och texten på beställningsknappen. Vi trycker aldrig på knappen och anger aldrig kortuppgifter eller någon annans personuppgifter. Utan ditt godkännande stannar vi vid kassans första steg."
+        "a": "Bara om ni väljer det när ni beställer: vi lägger en vara i varukorgen och fyller i {name}s egna företagsuppgifter fram till betalningen, för att se tillval, totalpris och texten på beställningsknappen. Vi trycker aldrig på knappen och anger aldrig kortuppgifter eller någon annans personuppgifter. Utan ert godkännande stannar vi vid kassans första steg."
       },
       {
         "q": "Vad händer med min e-postadress?",
-        "a": "Den används för rapporten och en uppföljning. Data lagras inom EU. Du kan be oss radera den när som helst."
+        "a": "Den används för rapporten och en uppföljning. Data lagras inom EU. Ni kan be oss radera den när som helst."
       }
     ]
   },
@@ -323,35 +323,35 @@
     "draftNotice": "Utkast – granskas av jurist innan lansering.",
     "sections": [
       {
-        "heading": "Vem ansvarar för dina uppgifter",
+        "heading": "Vem ansvarar för era uppgifter",
         "body": "Personuppgiftsansvarig är {company}, org.nr {orgNr}, {address}."
       },
       {
         "heading": "Vilka uppgifter vi samlar in",
-        "body": "När du beställer en gratis koll sparar vi webbadressen du anger, din e-postadress, valt språk, om du har godkänt att vi går igenom kassan, om du tänker lägga en testorder och tidpunkten. Anger du en webbadress gör vi också en automatisk snabbkoll av sajtens startsida på vår egen server i Sverige. Adressen och resultatet sparas i högst två timmar och kopplas inte till dig. Skickar du ett meddelande via kontaktformuläret sparar vi ämnet, din e-postadress, domännamnet och meddelandet om du anger dem, och tidpunkten."
+        "body": "När ni beställer en gratis koll sparar vi webbadressen ni anger, er e-postadress, valt språk, om ni har godkänt att vi går igenom kassan, om ni tänker lägga en testorder och tidpunkten. Anger ni en webbadress gör vi också en automatisk snabbkoll av sajtens startsida på vår egen server i Sverige. Adressen och resultatet sparas i högst två timmar och kopplas inte till er. Skickar ni ett meddelande via kontaktformuläret sparar vi ämnet, er e-postadress, domännamnet och meddelandet om ni anger dem, och tidpunkten."
       },
       {
         "heading": "Varför och med vilken rättslig grund",
-        "body": "Vi använder uppgifterna för att ta fram och skicka rapporten, svara på dina meddelanden och för en uppföljning. Grunden är ditt samtycke, som du kan återkalla när som helst."
+        "body": "Vi använder uppgifterna för att ta fram och skicka rapporten, svara på era meddelanden och för en uppföljning. Grunden är ert samtycke, som ni kan återkalla när som helst."
       },
       {
         "heading": "Var uppgifterna lagras och hur länge",
-        "body": "Uppgifterna lagras hos vårt formulärverktyg inom EU. Vi raderar dem senast 12 månader efter att rapporten skickats eller vi svarat dig, eller tidigare om du ber oss."
+        "body": "Uppgifterna lagras hos vårt formulärverktyg inom EU. Vi raderar dem senast 12 månader efter att rapporten skickats eller vi svarat er, eller tidigare om ni ber oss."
       },
       {
         "heading": "Kakor och besöksstatistik",
-        "body": "Webbplatsen använder inga kakor och ingen spårning för reklam. Vi räknar besök med GoatCounter, som vi kör på vår egen server i Sverige. Den sparar ingen IP-adress och inget som kan kopplas till dig, bara vilka sidor och steg som visas, vilken sida besökaren kom från, ungefärligt land och typ av webbläsare och skärm."
+        "body": "Webbplatsen använder inga kakor och ingen spårning för reklam. Vi räknar besök med GoatCounter, som vi kör på vår egen server i Sverige. Den sparar ingen IP-adress och inget som kan kopplas till er, bara vilka sidor och steg som visas, vilken sida besökaren kom från, ungefärligt land och typ av webbläsare och skärm."
       },
       {
-        "heading": "Dina rättigheter",
-        "body": "Du har rätt att få tillgång till, rätta och radera dina uppgifter, och att klaga hos Integritetsskyddsmyndigheten (IMY)."
+        "heading": "Era rättigheter",
+        "body": "Ni har rätt att få tillgång till, rätta och radera era uppgifter, och att klaga hos Integritetsskyddsmyndigheten (IMY)."
       }
     ]
   },
   "contact": {
     "slug": "kontakt",
     "title": "Kontakt",
-    "intro": "Berätta vad du vill ha hjälp med, så hör vi av oss inom en arbetsdag.",
+    "intro": "Berätta vad ni vill ha hjälp med, så hör vi av oss inom en arbetsdag.",
     "topicLabel": "Vad gäller det?",
     "topics": [
       {
@@ -376,7 +376,7 @@
     "consent": "Jag godkänner att {name} sparar uppgifterna för att svara mig.",
     "submit": "Skicka",
     "done": "Tack! Vi hör av oss inom en arbetsdag.",
-    "orEmail": "Du kan också mejla oss på",
+    "orEmail": "Ni kan också mejla oss på",
     "errorTopic": "Välj vad det gäller."
   }
 }
