@@ -29,16 +29,16 @@
     "areas": "Vi kontrollerar ångerrätt, priser, kassa, cookies, tillgänglighet, miljöpåståenden, recensioner och företagsuppgifter."
   },
   "flow": {
-    "emailTitle": "Vart ska rapporten?",
+    "emailTitle": "Vart ska vi skicka resultatet?",
     "emailLabel": "Jobbmejl",
     "emailPlaceholder": "namn@dinbutik.se",
     "match": "Matchar webbplatsen",
-    "mismatch": "Mejlen matchar inte webbplatsen. Vi skickar bara rapporten till den som äger eller jobbar för sajten, så vi hör av oss och frågar först.",
-    "consent": "Jag godkänner att {name} granskar sajten och mejlar rapporten till mig.",
+    "mismatch": "Mejlen matchar inte webbplatsen. Vi skickar bara resultatet till den som äger eller jobbar för sajten, så vi hör av oss och frågar först.",
+    "consent": "Jag godkänner att {name} granskar sajten och mejlar resultatet till mig.",
     "privacyLink": "Integritetspolicy",
     "next": "Fortsätt",
     "extrasTitle": "Ska vi kolla hela vägen?",
-    "extrasIntro": "Frivilligt. Rapporten kommer ändå.",
+    "extrasIntro": "Frivilligt. Resultatet kommer ändå.",
     "checkoutTitle": "Gå igenom kassan",
     "checkoutBody": "Fram till betalningen, med {name}s egna uppgifter. Vi lägger aldrig någon order.",
     "testTitle": "Jag lägger en testorder",
@@ -50,12 +50,12 @@
     "doneNow": "Nu",
     "doneNowBody": "vi har tagit emot er beställning",
     "done24": "Inom 24 timmar",
-    "done24Body": "rapporten i er inkorg",
+    "done24Body": "resultatet i er inkorg",
     "doneTest": "Efter er testorder",
     "doneTestBody": "ett tillägg om ångerflödet",
     "bookText": "Vill ni gå igenom resultatet tillsammans? 15 minuter på video.",
     "bookButton": "Boka en genomgång",
-    "bookSubject": "Genomgång av min Untrick-rapport",
+    "bookSubject": "Genomgång av mitt Untrick-resultat",
     "errorUrl": "Ange ett domännamn, till exempel dinbutik.se.",
     "errorEmail": "Ange en giltig e-postadress.",
     "errorConsent": "Kryssa i godkännandet för att fortsätta.",
@@ -65,9 +65,9 @@
       "title": "Snabbkollen",
       "running": "Vi kör de automatiska kontrollerna av startsidan…",
       "scoreLabel": "poäng av 100",
-      "note": "Automatiska kontroller av startsidan. Rapporten går igenom hela köpflödet.",
-      "unverified": "Vi visar snabbkollen när vi har bekräftat att sajten är er. Rapporten kommer ändå inom 24 timmar.",
-      "failed": "Snabbkollen kunde inte läsa sajten just nu. Vi går igenom den för hand i rapporten.",
+      "note": "Automatiska kontroller av startsidan. Det fullständiga resultatet går igenom hela köpflödet.",
+      "unverified": "Vi visar snabbkollen när vi har bekräftat att sajten är er. Resultatet kommer ändå inom 24 timmar.",
+      "failed": "Snabbkollen kunde inte läsa sajten just nu. Vi går igenom sajten för hand i stället, och ni får resultatet inom 24 timmar.",
       "ok": "Ser bra ut",
       "problem": "Behöver åtgärdas",
       "check": "Behöver kontrolleras",
@@ -212,7 +212,7 @@
         ]
       },
       {
-        "label": "Rapport med brister och åtgärder",
+        "label": "Resultat med brister och åtgärder",
         "values": [
           "yes",
           "yes",
@@ -268,7 +268,7 @@
         ]
       },
       {
-        "label": "Rapporter i byråns eget varumärke",
+        "label": "Resultat i byråns eget varumärke",
         "values": [
           "no",
           "no",
@@ -288,7 +288,7 @@
     "items": [
       {
         "q": "Är det här juridisk rådgivning?",
-        "a": "Nej. {name} kontrollerar e-handelssajter mot konsumentreglerna och visar var sajten avviker. Rapporten ersätter inte juridisk rådgivning i ett enskilt fall."
+        "a": "Nej. {name} kontrollerar e-handelssajter mot konsumentreglerna och visar var sajten avviker. Resultatet ersätter inte juridisk rådgivning i ett enskilt fall."
       },
       {
         "q": "Behöver ni tillgång till våra system?",
@@ -296,11 +296,11 @@
       },
       {
         "q": "Kan jag beställa en koll av någon annans webbplats?",
-        "a": "Nej. Den kostnadsfria rapporten skickas bara till den som äger eller arbetar för webbplatsen. Vi kontrollerar det innan vi skickar."
+        "a": "Nej. Det kostnadsfria resultatet skickas bara till den som äger eller arbetar för webbplatsen. Vi kontrollerar det innan vi skickar."
       },
       {
         "q": "Varför ber ni om en testorder?",
-        "a": "Ångerknappen och bekräftelsen syns ofta först efter ett köp. Rapporten kommer inom 24 timmar ändå. Lägger ni en testorder och skickar ordernumret kontrollerar vi hela flödet och skickar ett tillägg inom 24 timmar."
+        "a": "Ångerknappen och bekräftelsen syns ofta först efter ett köp. Resultatet kommer inom 24 timmar ändå. Lägger ni en testorder och skickar ordernumret kontrollerar vi hela flödet och skickar ett tillägg inom 24 timmar."
       },
       {
         "q": "Vad gör ni i kassan?",
@@ -308,7 +308,7 @@
       },
       {
         "q": "Vad händer med min e-postadress?",
-        "a": "Den används för rapporten och en uppföljning. Data lagras inom EU. Ni kan be oss radera den när som helst."
+        "a": "Den används för resultatet och en uppföljning. Data lagras inom EU. Ni kan be oss radera den när som helst."
       }
     ]
   },
@@ -332,11 +332,11 @@
       },
       {
         "heading": "Varför och med vilken rättslig grund",
-        "body": "Vi använder uppgifterna för att ta fram och skicka rapporten, svara på era meddelanden och för en uppföljning. Grunden är ert samtycke, som ni kan återkalla när som helst."
+        "body": "Vi använder uppgifterna för att ta fram och skicka resultatet, svara på era meddelanden och för en uppföljning. Grunden är ert samtycke, som ni kan återkalla när som helst."
       },
       {
         "heading": "Var uppgifterna lagras och hur länge",
-        "body": "Uppgifterna lagras hos vårt formulärverktyg inom EU. Vi raderar dem senast 12 månader efter att rapporten skickats eller vi svarat er, eller tidigare om ni ber oss."
+        "body": "Uppgifterna lagras hos vårt formulärverktyg inom EU. Vi raderar dem senast 12 månader efter att resultatet skickats eller vi svarat er, eller tidigare om ni ber oss."
       },
       {
         "heading": "Kakor och besöksstatistik",
@@ -360,7 +360,7 @@
       },
       {
         "value": "review",
-        "label": "Genomgång av min rapport"
+        "label": "Genomgång av mitt resultat"
       },
       {
         "value": "enterprise",
