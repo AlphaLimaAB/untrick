@@ -1,7 +1,7 @@
 {
   "meta": {
     "title": "{name} – Följer er butik konsumentreglerna? Gratis koll",
-    "description": "Ange ert domännamn så kontrollerar vi ångerknappen, kassan och cookiebannern mot konsumentreglerna. Gratis rapport i mejlen inom 24 timmar."
+    "description": "Ange ert domännamn så kontrollerar vi ångerknappen, kassan och cookiebannern mot konsumentreglerna. Gratis resultat i mejlen inom 24 timmar."
   },
   "ui": {
     "skip": "Hoppa till innehållet",
@@ -25,8 +25,8 @@
     "urlLabel": "Ert domännamn",
     "urlPlaceholder": "dinbutik.se",
     "submit": "Gör en koll",
-    "note": "Gratis · Ingen inloggning · Rapport i mejlen inom 24 timmar",
-    "areas": "Ångerrätt · Priser · Kassa · Cookies · Tillgänglighet · Miljöpåståenden · Recensioner"
+    "note": "Gratis · Utan inloggning · Resultat i mejlen inom 24 timmar",
+    "areas": "Vi kontrollerar ångerrätt, priser, kassa, cookies, tillgänglighet, miljöpåståenden, recensioner och företagsuppgifter."
   },
   "flow": {
     "emailTitle": "Vart ska rapporten?",

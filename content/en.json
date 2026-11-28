@@ -1,7 +1,7 @@
 {
   "meta": {
     "title": "{name} – Does your shop follow consumer law? Free check",
-    "description": "Enter your domain and we check the withdrawal button, checkout and cookie banner against consumer law. Free report by email within 24 hours."
+    "description": "Enter your domain and we check the withdrawal button, checkout and cookie banner against consumer law. Free results by email within 24 hours."
   },
   "ui": {
     "skip": "Skip to content",
@@ -25,8 +25,8 @@
     "urlLabel": "Your domain",
     "urlPlaceholder": "yourshop.com",
     "submit": "Run a check",
-    "note": "Free · No login · Report by email within 24 hours",
-    "areas": "Withdrawal · Prices · Checkout · Cookies · Accessibility · Green claims · Reviews"
+    "note": "Free · No login · Results by email within 24 hours",
+    "areas": "We check withdrawal, prices, checkout, cookies, accessibility, environmental claims, reviews and company details."
   },
   "flow": {
     "emailTitle": "Where should the report go?",
