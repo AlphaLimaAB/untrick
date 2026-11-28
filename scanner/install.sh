@@ -10,7 +10,7 @@ install -d -o 1001 -g "$OWNER_GROUP" -m 2775 /srv/untrick-scanner /srv/untrick-s
 chown 1001:"$OWNER_GROUP" /srv/untrick-scanner/data && chmod 2775 /srv/untrick-scanner/data
 
 mkdir -p /opt/untrick-scanner
-cp Dockerfile package.json package-lock.json server.mjs store.mjs admin.mjs README.md /opt/untrick-scanner/
+cp Dockerfile package.json package-lock.json server.mjs store.mjs admin.mjs deep.mjs README.md /opt/untrick-scanner/
 install -m 755 untrick-scanner-firewall /usr/local/sbin/untrick-scanner-firewall
 install -m 644 untrick-scanner.service /etc/systemd/system/untrick-scanner.service
 docker build -q -t untrick-scanner:1 /opt/untrick-scanner

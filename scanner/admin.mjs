@@ -21,7 +21,12 @@ const HELP = `Untrick customer mode
   alerts [DAYS]                         What needs attention from the last DAYS days (default 7)
   summary <site> <YYYY-MM> [--lang sv|en]
                                         Monthly summary in Markdown for the customer report
+  prices <site> [url]                   Our price history (daily prices of tracked product pages)
+  pages <site>                          Terms pages we keep snapshots of, and when they last changed
   backup                                Consistent copy of the database to data/backup/ (keeps 30)
+
+Sites can be set to several markets (used by the monthly enforcement watch):
+  set <site> markets SE,NO,DK,FI
 `;
 
 const DATA = dataDir();
@@ -67,9 +72,10 @@ switch (cmd) {
     if (flags.tsv) {
       console.log(tsv(rows.map((s) => [s.id, s.url, s.company, s.plan, s.status, day(s.created), s.every_days, day(s.last_scan), '', latestScore(s.id)])));
     } else {
-      console.log(table([['Site', 'URL', 'Company', 'Plan', 'Status', 'Every', 'Last scan', 'Next scan', 'Score', 'Open'],
+      console.log(table([['Site', 'URL', 'Company', 'Plan', 'Status', 'Every', 'Last scan', 'Next scan', 'Score', 'Open', 'Markets', 'Campaign'],
         ...rows.map((s) => [s.id, s.url, s.company, s.plan, s.status, s.every_days, day(s.last_scan), s.scan_requested ? 'within a minute' : day(s.next_scan),
-          latestScore(s.id), store.register(s.id).filter((f) => OPEN.includes(f.status)).length])]));
+          latestScore(s.id), store.register(s.id).filter((f) => OPEN.includes(f.status)).length, s.markets,
+          s.campaign_until && s.campaign_until > new Date().toISOString() ? 'until ' + day(s.campaign_until) : ''])]));
     }
     break;
   }
@@ -143,6 +149,8 @@ switch (cmd) {
       if (e.to_status === 'New') lines.push(`${day(e.at)}  ${e.site_id}  NEW ${e.rule} (${e.place})`);
       if (e.to_status === 'Reopened') lines.push(`${day(e.at)}  ${e.site_id}  REOPENED ${e.rule} (${e.place}): it was fixed, now it is back`);
       if (e.to_status === 'Fixed') lines.push(`${day(e.at)}  ${e.site_id}  fixed ${e.rule} (${e.place})`);
+      if (e.to_status === 'Terms changed') lines.push(`${day(e.at)}  ${e.site_id}  TERMS CHANGED ${e.place} (${e.note})`);
+      if (e.to_status === 'Campaign detected') lines.push(`${day(e.at)}  ${e.site_id}  CAMPAIGN: ${e.note}`);
     }
     for (const s of store.sites()) {
       if (s.status === 'Ended') continue;
@@ -163,8 +171,8 @@ switch (cmd) {
     const to = monthStart(m === 12 ? y + 1 : y, m === 12 ? 1 : m + 1);
     const sv = (flags.lang || 'sv') === 'sv';
     const t = sv
-      ? { title: 'Månadssammanfattning', scans: 'Skanningar', score: 'Untrick-poäng', none: 'Inga', fixed: 'Åtgärdat den här månaden', added: 'Nytt den här månaden', back: 'Har kommit tillbaka', open: 'Fortfarande öppet', accepted: 'Accepterad risk', since: 'sedan', days: 'dagar', evidence: 'Bevis (daterade skärmbilder) finns för varje skanning.', failed: 'misslyckades', draft: 'Utkast: "Det vi såg" är på engelska och skrivs om i rapporten.' }
-      : { title: 'Monthly summary', scans: 'Scans', score: 'Untrick score', none: 'None', fixed: 'Fixed this month', added: 'New this month', back: 'Came back', open: 'Still open', accepted: 'Accepted risk', since: 'since', days: 'days', evidence: 'Evidence (dated screenshots) is kept for every scan.', failed: 'failed', draft: '' };
+      ? { title: 'Månadssammanfattning', scans: 'Skanningar', score: 'Untrick-poäng', none: 'Inga', fixed: 'Åtgärdat den här månaden', added: 'Nytt den här månaden', back: 'Har kommit tillbaka', open: 'Fortfarande öppet', accepted: 'Accepterad risk', since: 'sedan', days: 'dagar', evidence: 'Bevis (daterade skärmbilder) finns för varje skanning.', failed: 'misslyckades', terms: 'Ändrade villkor', campaigns: 'Kampanjer vi bevakade dagligen', draft: 'Utkast: "Det vi såg" är på engelska och skrivs om i rapporten.' }
+      : { title: 'Monthly summary', scans: 'Scans', score: 'Untrick score', none: 'None', fixed: 'Fixed this month', added: 'New this month', back: 'Came back', open: 'Still open', accepted: 'Accepted risk', since: 'since', days: 'days', evidence: 'Evidence (dated screenshots) is kept for every scan.', failed: 'failed', terms: 'Terms that changed', campaigns: 'Campaigns we watched daily', draft: '' };
     const scans = store.scansFor(s.id, from, to);
     const done = scans.filter((x) => x.status === 'done');
     const events = store.eventsFor(s.id, from, to);
@@ -186,6 +194,12 @@ switch (cmd) {
       `### ${t.back}`,
       list(events.filter((e) => e.to_status === 'Reopened').map((e) => `${name(e.rule)} (${e.place}), ${day(e.at)}`)),
       '',
+      `### ${t.terms}`,
+      list(events.filter((e) => e.to_status === 'Terms changed').map((e) => `${e.place}, ${day(e.at)} (${e.note})`)),
+      '',
+      `### ${t.campaigns}`,
+      list(events.filter((e) => e.to_status === 'Campaign detected').map((e) => `${day(e.at)}: ${e.note}`)),
+      '',
       `### ${t.open}`,
       list(reg.filter((f) => OPEN.includes(f.status) && f.first_seen < to).map((f) =>
         `**${f.severity}** ${name(f.rule)} (${f.place}), ${t.since} ${day(f.first_seen)} (${Math.max(0, Math.round((Date.parse(to < new Date().toISOString() ? to : new Date().toISOString()) - Date.parse(f.first_seen)) / 86400000))} ${t.days}): ${f.latest}`)),
@@ -197,6 +211,19 @@ switch (cmd) {
     ];
     if (t.draft) console.error(t.draft);
     console.log(out.join('\n'));
+    break;
+  }
+  case 'prices': {
+    need(1, 'prices <site> [url]');
+    siteOrFail(args[0]);
+    const rows = store.priceHistory(args[0], args[1]);
+    console.log(table([['Day', 'Price', 'Shown as was', 'URL'], ...rows.slice(-200).map((r) => [r.day, r.price, r.was ?? '', args[1] ? '' : new URL(r.url).pathname.slice(0, 50)])]));
+    break;
+  }
+  case 'pages': {
+    need(1, 'pages <site>');
+    siteOrFail(args[0]);
+    console.log(table([['Kind', 'First seen', 'Last seen', 'Last changed', 'URL'], ...store.pagesFor(args[0]).map((p) => [p.kind, day(p.first_seen), day(p.last_seen), day(p.changed_at), p.url])]));
     break;
   }
   case 'backup': {

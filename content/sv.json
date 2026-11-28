@@ -26,7 +26,7 @@
     "urlPlaceholder": "dinbutik.se",
     "submit": "Gör en koll",
     "note": "Gratis · Utan inloggning · Resultat i mejlen inom 24 timmar",
-    "areas": "Vi kontrollerar ångerrätt, priser, kassa, cookies, tillgänglighet, miljöpåståenden, recensioner och företagsuppgifter."
+    "areas": "Vi kontrollerar ångerrätt, priser, kassa och betalsätt, cookies och spårning, tillgänglighet, miljöpåståenden, produktsäkerhet, AI-chattar och villkor."
   },
   "flow": {
     "emailTitle": "Vart ska vi skicka resultatet?",
@@ -84,7 +84,16 @@
       "r_UT17": "Företagsuppgifter",
       "noGreen": "Inga allmänna miljöpåståenden",
       "orgFound": "Organisationsnummer visas",
-      "orgMissing": "Hittade inget organisationsnummer"
+      "orgMissing": "Hittade inget organisationsnummer",
+      "r_UT21": "Spårning innan samtycke",
+      "r_UT20": "Chattbot",
+      "r_UT22": "Länk till nedlagd EU-tjänst",
+      "trackersNone": "Ingen spårning startar innan besökaren valt",
+      "trackersFound": "Startar innan besökaren valt:",
+      "googlePings": "Bara Google-mätning utan kakor (Consent Mode)",
+      "chatFound": "Chatt hittad:",
+      "chatNote": "Den ska tala om att den är en AI.",
+      "odrFound": "EU:s ODR-plattform stängdes 20 juli 2025. Ta bort länken."
     }
   },
   "pages": {
@@ -101,7 +110,7 @@
   },
   "checks": {
     "title": "Det här kontrollerar vi",
-    "intro": "Sju områden och fler än 20 kontrollpunkter. Vi går igenom sajten som en kund: startsida, produktsidor, kassa, ångerflöde och villkor.",
+    "intro": "Åtta områden och fler än 25 kontrollpunkter. Vi går igenom sajten som en kund: startsida, produktsidor, kassa, ångerflöde och villkor.",
     "tagNow": "Gäller nu",
     "tagSoon": "På väg",
     "items": [
@@ -113,12 +122,12 @@
       {
         "status": "now",
         "title": "Priser och rabatter",
-        "body": "När ni sänker ett pris ska ni visa det lägsta priset från de senaste 30 dagarna och räkna rabatten från det. Totalpriset, med frakt och avgifter, ska synas innan kunden beställer."
+        "body": "När ni sänker ett pris ska ni visa det lägsta priset från de senaste 30 dagarna och räkna rabatten från det. Totalpriset, med frakt och avgifter, ska synas innan kunden beställer. Jämförpris ska visas där det krävs, och ni får inte ta ut en avgift för betalning med kort."
       },
       {
         "status": "now",
         "title": "Cookiebannern",
-        "body": "Det ska vara lika lätt att neka kakor som att godkänna dem, redan på första skärmen. Inga val får vara förkryssade."
+        "body": "Det ska vara lika lätt att neka kakor som att godkänna dem, redan på första skärmen. Inga val får vara förkryssade, och ingen spårning får starta innan besökaren har valt."
       },
       {
         "status": "now",
@@ -142,8 +151,23 @@
       },
       {
         "status": "now",
-        "title": "Recensioner och företagsuppgifter",
-        "body": "Visar ni kundrecensioner ska ni berätta om och hur ni kontrollerar att de kommer från riktiga kunder. Företagsnamn, organisationsnummer, adress och e-post ska vara lätta att hitta."
+        "title": "Villkor, recensioner och företagsuppgifter",
+        "body": "Visar ni kundrecensioner ska ni berätta om och hur ni kontrollerar att de kommer från riktiga kunder. Företagsnamn, organisationsnummer, adress och e-post ska vara lätta att hitta. Villkoren ska vara aktuella, till exempel utan länk till EU:s nedlagda plattform för tvistlösning online."
+      },
+      {
+        "status": "now",
+        "title": "Betalsätt i kassan",
+        "body": "Ett betalsätt utan kredit ska visas först i kassan, och faktura, delbetalning eller kreditkort får inte vara förvalt. Från 20 november 2026 räknas även \"köp nu, betala sen\" som kredit."
+      },
+      {
+        "status": "now",
+        "title": "Produktsäkerhet",
+        "body": "Sedan 13 december 2024 ska varje produktsida visa tillverkarens namn, postadress och e-post, och de varningar och den säkerhetsinformation som gäller för produkten."
+      },
+      {
+        "status": "now",
+        "title": "AI-chattar",
+        "body": "Sedan 2 augusti 2026 ska en chattbot tala om för besökaren att den är en AI."
       },
       {
         "status": "soon",
@@ -229,6 +253,38 @@
       },
       {
         "label": "Larm när sajten bryter mot reglerna",
+        "values": [
+          "no",
+          "yes",
+          "yes"
+        ]
+      },
+      {
+        "label": "Egen prishistorik som kontrollerar era rabatter",
+        "values": [
+          "no",
+          "yes",
+          "yes"
+        ]
+      },
+      {
+        "label": "Logg över ändringar i villkor och policyer",
+        "values": [
+          "no",
+          "yes",
+          "yes"
+        ]
+      },
+      {
+        "label": "Daglig granskning under kampanjer och rea",
+        "values": [
+          "no",
+          "yes",
+          "yes"
+        ]
+      },
+      {
+        "label": "Bevakning av myndighetsbeslut på era marknader",
         "values": [
           "no",
           "yes",
