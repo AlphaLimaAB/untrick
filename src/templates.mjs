@@ -19,6 +19,11 @@ const ICON_CLOSE = '<svg class="i-close" aria-hidden="true" focusable="false" wi
 const marked = (before, mark, after, shape = CIRCLE, cls = 'mark') =>
   `${esc(before)}<span class="${cls}">${esc(mark)}${shape}</span>${esc(after)}`;
 
+// Self-hosted, cookie-free GoatCounter (see AGENTS.md). Nothing loads when content/site.json has no analytics.
+const analyticsTag = (site) => (site.analytics && site.analytics.endpoint
+  ? `<script data-goatcounter="${esc(site.analytics.endpoint)}" async src="${esc(site.analytics.script)}"></script>\n`
+  : '');
+
 function layout({ site, t, lang, title, description, body, paths, alt, page }) {
   const canonical = site.baseUrl ? `<link rel="canonical" href="${esc(site.baseUrl + paths[page])}">` : '';
   const alternates = site.baseUrl
@@ -61,7 +66,7 @@ ${body}
 <footer class="foot">
   <p>${esc(t.footer.serviceBy)} ${esc(site.company.name)} · ${esc(t.footer.orgNr)} ${esc(site.company.orgNr)} · <a href="${paths.privacy}">${esc(t.footer.privacy)}</a></p>
 </footer>
-<script src="/assets/main.js" defer></script>
+${analyticsTag(site)}<script src="/assets/main.js" defer></script>
 </body>
 </html>
 `;
@@ -94,7 +99,7 @@ function compareTable({ t, paths, bookHref, contactHref, done }) {
   const free = done
     ? `<span class="taken">${ICON_YES} ${esc(c.freeDone)}</span>`
     : `<a class="btn btn-line" href="${paths.home}">${esc(c.freeCta)}</a>`;
-  const ctas = [free, `<a class="btn" href="${bookHref}">${esc(c.monitorCta)}</a>`, `<a class="btn btn-line" href="${contactHref}">${esc(c.enterpriseCta)}</a>`];
+  const ctas = [free, `<a class="btn" href="${bookHref}" data-goatcounter-click="click-monitoring">${esc(c.monitorCta)}</a>`, `<a class="btn btn-line" href="${contactHref}" data-goatcounter-click="click-enterprise">${esc(c.enterpriseCta)}</a>`];
   return `
   <section class="table-wrap" aria-label="${esc(c.title)}" tabindex="0">
     <table class="compare">
@@ -185,7 +190,7 @@ export function homePage({ site, t, lang, paths, alt }) {
   </ol>
   <div class="book">
     <p>${esc(f.bookText)}</p>
-    <a class="btn btn-yellow" href="${bookHref}">${esc(f.bookButton)}</a>
+    <a class="btn btn-yellow" href="${bookHref}" data-goatcounter-click="click-book-thanks">${esc(f.bookButton)}</a>
   </div>
 </div>
 <div class="compare-block">
