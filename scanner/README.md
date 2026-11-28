@@ -1,7 +1,8 @@
 # Untrick instant-check scanner
 
-A small HTTP service that opens a shop's home page in headless Chromium and runs six
-automatic checks (UT-01, UT-10, UT-12, UT-13, UT-14, UT-17 in the checklist). It runs on
+A small HTTP service that opens a shop's home page in headless Chromium and runs automatic
+checks: UT-01, UT-10, UT-12, UT-13, UT-14, UT-17, UT-21 (tracking before consent), and UT-20
+(chat widget) and UT-22 (ODR link) when found. It runs on
 Anton's Raspberry Pi in Docker and is public at `https://betting-pi.tail689e03.ts.net/scan`
 through Tailscale Funnel.
 
@@ -36,6 +37,14 @@ When `/srv/untrick-scanner/data` is mounted at `/data`, the scanner also keeps c
   - an unknown result never changes a status;
   - **Accepted risk** is only set by hand and stays until the problem is gone.
   Manual results (checkout, terms, product pages) go in with `record` and follow the same rules.
+- **Deeper scheduled scans.** Each scheduled scan also opens up to 5 product pages (product safety
+  details, UT-19, and prices) and up to 4 terms pages (terms, returns, privacy, delivery).
+- **Price history.** Every night the tracked product pages (up to 20 per site) are read again. With
+  20+ days of our own history, a reduced price whose reference is above the lowest price we recorded
+  in the 30 days before is a UT-03 finding, with a dated screenshot.
+- **Terms change log.** Terms pages are kept as dated text; a change shows in `alerts` and `summary`.
+- **Campaign mode.** Campaign words or many reduced prices on the front page mean daily scans for
+  7 days; Singles Day, Black Week and Christmas to New Year are always daily.
 - **No HTTP endpoints.** It is managed on the Pi with `docker exec`, so nothing new is exposed.
 
 ```bash
@@ -44,7 +53,10 @@ ut add dinbutik.se --company "Din Butik AB"     # baseline scan within a minute
 ut set dinbutik-se status Active                # weekly scans from now on
 ut record dinbutik-se UT-02 Checkout fail --severity High --saw "Insurance pre-ticked"
 ut finding dinbutik-se UT-14 "Front page" status "Accepted risk"
-ut alerts 7                                     # new, reopened, fixed, failing, overdue, score drops
+ut alerts 7                                     # new, reopened, fixed, terms changed, campaigns, failing
+ut prices dinbutik-se                           # our price history
+ut pages dinbutik-se                            # terms pages we keep copies of
+ut set dinbutik-se markets SE,NO                # markets for the monthly enforcement watch
 ut summary dinbutik-se 2026-12                  # Markdown for the monthly report
 ut register dinbutik-se --tsv                   # paste into the tracker's Register sheet
 ```

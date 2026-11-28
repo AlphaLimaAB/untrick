@@ -26,7 +26,7 @@
     "urlPlaceholder": "yourshop.com",
     "submit": "Run a check",
     "note": "Free · No login · Results by email within 24 hours",
-    "areas": "We check withdrawal, prices, checkout, cookies, accessibility, environmental claims, reviews and company details."
+    "areas": "We check withdrawal, prices, checkout and payment methods, cookies and tracking, accessibility, environmental claims, product safety, AI chats and terms."
   },
   "flow": {
     "emailTitle": "Where should we send the results?",
@@ -110,7 +110,7 @@
   },
   "checks": {
     "title": "What we check",
-    "intro": "Seven areas and more than 20 checkpoints. We go through the site like a customer: home page, product pages, checkout, withdrawal flow and terms.",
+    "intro": "Eight areas and more than 25 checkpoints. We go through the site like a customer: home page, product pages, checkout, withdrawal flow and terms.",
     "tagNow": "Applies now",
     "tagSoon": "Coming",
     "items": [
@@ -122,12 +122,12 @@
       {
         "status": "now",
         "title": "Prices and discounts",
-        "body": "When you reduce a price, you must show the lowest price from the last 30 days and calculate the discount from it. The total price, with delivery and fees, must be visible before the customer orders."
+        "body": "When you reduce a price, you must show the lowest price from the last 30 days and calculate the discount from it. The total price, with delivery and fees, must be visible before the customer orders. Unit prices must be shown where required, and you may not charge a fee for paying by card."
       },
       {
         "status": "now",
         "title": "The cookie banner",
-        "body": "Rejecting cookies must be as easy as accepting them, on the first screen. No choices may be pre-ticked."
+        "body": "Rejecting cookies must be as easy as accepting them, on the first screen. No choices may be pre-ticked, and no tracking may start before the visitor has chosen."
       },
       {
         "status": "now",
@@ -151,8 +151,23 @@
       },
       {
         "status": "now",
-        "title": "Reviews and company details",
-        "body": "If you show customer reviews, you must say whether and how you check that they come from real customers. Company name, company registration number, address and email must be easy to find."
+        "title": "Terms, reviews and company details",
+        "body": "If you show customer reviews, you must say whether and how you check that they come from real customers. Company name, company registration number, address and email must be easy to find. Your terms must be up to date, for example without a link to the EU's closed online dispute resolution platform."
+      },
+      {
+        "status": "now",
+        "title": "Payment methods at checkout",
+        "body": "A payment method without credit must be shown first at checkout, and invoice, part payment or credit card may not be preselected. From 20 November 2026 \"buy now, pay later\" also counts as credit."
+      },
+      {
+        "status": "now",
+        "title": "Product safety",
+        "body": "Since 13 December 2024 every product page must show the manufacturer's name, postal address and email, and the warnings and safety information that apply to the product."
+      },
+      {
+        "status": "now",
+        "title": "AI chats",
+        "body": "Since 2 August 2026 a chatbot must tell visitors that it is an AI."
       },
       {
         "status": "soon",
@@ -238,6 +253,38 @@
       },
       {
         "label": "Alert when the site breaks the rules",
+        "values": [
+          "no",
+          "yes",
+          "yes"
+        ]
+      },
+      {
+        "label": "Our own price history that checks your discounts",
+        "values": [
+          "no",
+          "yes",
+          "yes"
+        ]
+      },
+      {
+        "label": "Log of changes to your terms and policies",
+        "values": [
+          "no",
+          "yes",
+          "yes"
+        ]
+      },
+      {
+        "label": "Daily review during campaigns and sales",
+        "values": [
+          "no",
+          "yes",
+          "yes"
+        ]
+      },
+      {
+        "label": "Watch of authority decisions in your markets",
         "values": [
           "no",
           "yes",
