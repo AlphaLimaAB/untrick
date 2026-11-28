@@ -25,6 +25,61 @@
     }
   }
 
+  // ---- Contact form (contact page). Posts to the same Forminit form, marked fi-text-form=contact ----
+  const contactForm = document.getElementById('contact-form');
+  if (contactForm) {
+    contactForm.noValidate = true;
+    const cd = contactForm.dataset;
+    const cErr = document.getElementById('contact-error');
+    const done = document.getElementById('contact-done');
+    const topic = new URLSearchParams(location.search).get('topic');
+    const preset = topic && contactForm.querySelector('input[name="fi-radio-topic"][value="' + topic.replace(/[^a-z-]/g, '') + '"]');
+    if (preset) preset.checked = true; // the visitor chose this by clicking that button
+    let busy = false;
+    const fail = (message, field) => {
+      cErr.textContent = message;
+      cErr.hidden = false;
+      if (field) field.focus();
+    };
+    contactForm.addEventListener('submit', async function (event) {
+      event.preventDefault();
+      if (busy) return;
+      cErr.hidden = true;
+      const chosen = contactForm.querySelector('input[name="fi-radio-topic"]:checked');
+      const email = document.getElementById('c-email');
+      const ok = document.getElementById('c-consent');
+      if (!chosen) return fail(cd.errorTopic, contactForm.querySelector('input[name="fi-radio-topic"]'));
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value.trim())) return fail(cd.errorEmail, email);
+      if (!ok.checked) return fail(cd.errorConsent, ok);
+      const fd = new FormData(contactForm);
+      fd.set('fi-sender-email', email.value.trim());
+      fd.append('fi-text-language', document.documentElement.lang);
+      const button = contactForm.querySelector('button[type=submit]');
+      busy = true;
+      button.disabled = true;
+      try {
+        if (cd.endpoint) {
+          const response = await fetch(cd.endpoint, { method: 'POST', body: fd, headers: { Accept: 'application/json' } });
+          let body = null;
+          try { body = await response.json(); } catch (e) { body = null; }
+          const hashId = body && ((body.submission && body.submission.hashId) || body.hashId);
+          if (!(response.ok && (cd.provider !== 'forminit' || typeof hashId === 'string'))) {
+            return fail(response.status === 429 ? cd.errorWait : cd.errorNetwork);
+          }
+        }
+        track('contact-' + chosen.value);
+        contactForm.hidden = true;
+        done.hidden = false;
+        done.focus();
+      } catch (e) {
+        fail(cd.errorNetwork);
+      } finally {
+        busy = false;
+        button.disabled = false;
+      }
+    });
+  }
+
   const form = document.getElementById('scan-form');
   if (!form) return;
   form.noValidate = true; // we validate per step and show our own messages

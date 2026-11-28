@@ -29,7 +29,7 @@ function layout({ site, t, lang, title, description, body, paths, alt, page }) {
   const alternates = site.baseUrl
     ? `<link rel="alternate" hreflang="${lang}" href="${esc(site.baseUrl + paths[page])}">\n<link rel="alternate" hreflang="${alt.lang}" href="${esc(site.baseUrl + alt.paths[page])}">`
     : '';
-  const contact = site.contactEmail ? `<a href="mailto:${esc(site.contactEmail)}">${esc(t.menu.contact)}</a>` : '';
+  const contact = `<a href="${paths.contact}">${esc(t.menu.contact)}</a>`;
   return `<!DOCTYPE html>
 <html lang="${lang}">
 <head>
@@ -119,17 +119,18 @@ function compareTable({ t, paths, bookHref, contactHref, done }) {
   </section>`;
 }
 
-const links = (site, t) => ({
-  bookHref: site.bookingUrl
-    ? esc(site.bookingUrl)
-    : `mailto:${esc(site.contactEmail)}?subject=${encodeURIComponent(t.flow.bookSubject)}`,
-  contactHref: `mailto:${esc(site.contactEmail)}?subject=${encodeURIComponent(t.compare.enterpriseSubject)}`
+// Buttons go to our own contact form (a mailto link opens whatever mail app the visitor has, often none).
+// When a booking tool exists, set bookingUrl in content/site.json and the booking buttons use it instead.
+const links = (site, paths) => ({
+  bookHref: site.bookingUrl ? esc(site.bookingUrl) : `${paths.contact}?topic=monitoring`,
+  reviewHref: site.bookingUrl ? esc(site.bookingUrl) : `${paths.contact}?topic=review`,
+  contactHref: `${paths.contact}?topic=enterprise`
 });
 
 export function homePage({ site, t, lang, paths, alt }) {
   const s = t.start;
   const f = t.flow;
-  const { bookHref, contactHref } = links(site, t);
+  const { bookHref, reviewHref, contactHref } = links(site, paths);
   const body = `
 <form id="scan-form" class="flow" action="${esc(site.form.endpoint)}" method="post"
   data-scanner="${esc(site.scanner && site.scanner.endpoint ? site.scanner.endpoint : '')}"
@@ -199,12 +200,12 @@ export function homePage({ site, t, lang, paths, alt }) {
   </ol>
   <div class="book">
     <p>${esc(f.bookText)}</p>
-    <a class="btn btn-yellow" href="${bookHref}" data-goatcounter-click="click-book-thanks">${esc(f.bookButton)}</a>
+    <a class="btn btn-yellow" href="${reviewHref}" data-goatcounter-click="click-book-thanks">${esc(f.bookButton)}</a>
   </div>
 </div>
 <div class="compare-block">
   <h3>${esc(t.compare.title)}</h3>
-  <p class="muted">${esc(t.compare.intro)}</p>
+  <p class="muted lead">${esc(t.compare.intro)}</p>
   <p class="risk">${esc(t.compare.risk)}</p>${compareTable({ t, paths, bookHref, contactHref, done: true })}
 </div>
 </section>`;
@@ -241,7 +242,7 @@ export function howPage({ site, t, lang, paths, alt }) {
 }
 
 export function pricingPage({ site, t, lang, paths, alt }) {
-  const { bookHref, contactHref } = links(site, t);
+  const { bookHref, contactHref } = links(site, paths);
   const body = `
 <div class="page wide">
   <h1>${esc(t.compare.title)}</h1>
@@ -265,6 +266,44 @@ export function faqPage({ site, t, lang, paths, alt }) {
   ${cta(t, paths)}
 </div>`;
   return layout({ site, t, lang, paths, alt, page: 'faq', title: `${t.faq.title} – ${site.name}`, description: t.faq.title, body });
+}
+
+export function contactPage({ site, t, lang, paths, alt }) {
+  const c = t.contact;
+  const topics = c.topics
+    .map((x) => `
+      <label class="radio"><input type="radio" name="fi-radio-topic" value="${esc(x.value)}" required> ${esc(x.label)}</label>`)
+    .join('');
+  const body = `
+<div class="page">
+  <h1>${esc(c.title)}</h1>
+  <p class="muted">${esc(c.intro)}</p>
+  <form id="contact-form" class="contact-form" action="${esc(site.form.endpoint)}" method="post"
+    data-endpoint="${esc(site.form.endpoint)}" data-provider="${esc(site.form.provider)}"
+    data-error-topic="${esc(c.errorTopic)}" data-error-email="${esc(t.flow.errorEmail)}"
+    data-error-consent="${esc(t.flow.errorConsent)}" data-error-network="${esc(t.flow.errorNetwork)}" data-error-wait="${esc(t.flow.errorWait)}">
+    <input type="hidden" name="fi-text-form" value="contact">
+    <fieldset>
+      <legend class="field-label">${esc(c.topicLabel)}</legend>
+${topics}
+    </fieldset>
+    <label class="field-label" for="c-email">${esc(t.flow.emailLabel)}</label>
+    <input id="c-email" name="fi-sender-email" type="email" autocomplete="email" placeholder="${esc(t.flow.emailPlaceholder)}" required>
+    <label class="field-label" for="c-site">${esc(c.websiteLabel)}</label>
+    <input id="c-site" name="fi-text-website" type="text" inputmode="url" autocapitalize="off" spellcheck="false" placeholder="${esc(t.start.urlPlaceholder)}">
+    <label class="field-label" for="c-message">${esc(c.messageLabel)}</label>
+    <textarea id="c-message" name="fi-text-message" rows="4" maxlength="2000"></textarea>
+    <div class="consent">
+      <input id="c-consent" name="fi-checkbox-consent" type="checkbox" value="yes" required>
+      <label for="c-consent">${esc(c.consent)} <a href="${paths.privacy}">${esc(t.flow.privacyLink)}</a></label>
+    </div>
+    <button class="btn" type="submit">${esc(c.submit)}</button>
+    <p class="error" id="contact-error" role="alert" hidden></p>
+  </form>
+  <p class="contact-done" id="contact-done" tabindex="-1" hidden>${esc(c.done)}</p>
+  <p class="muted">${esc(c.orEmail)} <a href="mailto:${esc(site.contactEmail)}">${esc(site.contactEmail)}</a></p>
+</div>`;
+  return layout({ site, t, lang, paths, alt, page: 'contact', title: `${c.title} – ${site.name}`, description: c.intro, body });
 }
 
 export function privacyPage({ site, t, lang, paths, alt }) {
