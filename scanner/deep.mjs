@@ -21,6 +21,8 @@ const PRODUCT_PATH = /\/(p|product|products|produkt|produkter|tuote|vare|artikel
 const CAMPAIGN_WORDS = /black\s?(friday|week)|cyber\s?monday|singles\s?day|mellandagsrea|julrea|sommarrea|vinterrea|mega\s?sale|\bsale\b|\brea\b|kampanj|udsalg|\balennus|tarjous/i;
 const MANUFACTURER = /tillverkare|manufacturer|producent|produsent|producenten|hersteller|valmistaja|ansvarig person|responsible person|ansvarlig person|vastuuhenkilö|eu-representant/i;
 const EMAIL = /[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}/i;
+// A product safety section whose details open on click (common in big Nordic shops) counts as present.
+const SAFETY_SECTION = /produkts[äa]kerhet|s[äa]kerhetsinformation|product safety|safety information|produktsikkerhe[dt]|tuoteturvallisuus|\bGPSR\b/i;
 
 export function parsePrice(text) {
   const m = String(text || '').replace(/ /g, ' ').match(/(\d{1,3}(?:[ .]\d{3})+|\d+)(?:[,.](\d{1,2}))?\s*(kr|:-|sek|nok|dkk|€|eur)?/i);
@@ -76,7 +78,7 @@ export async function readProduct(page, url) {
   const was = f.wasTexts.map(parsePrice).find((v) => v && price && v > price * 1.01) || null;
   const label = MANUFACTURER.exec(f.text);
   const contact = label ? EMAIL.test(f.text.slice(label.index, label.index + 500)) : false;
-  return { url, name: f.name, price, was, currency: f.currency, gpsr: { label: !!label, contact } };
+  return { url, name: f.name, price, was, currency: f.currency, gpsr: { label: !!label, contact, section: SAFETY_SECTION.test(f.text) } };
 }
 
 const sameSite = (a, b) => a.replace(/^www\./, '') === b.replace(/^www\./, '');

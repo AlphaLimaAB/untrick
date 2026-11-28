@@ -19,7 +19,7 @@ export const RULES = {
   'UT-14': { title: 'Generic environmental claims', sv: 'Generella miljöpåståenden', problem: 'Medium', check: 'Observation' },
   'UT-17': { title: 'Organisation number shown', sv: 'Organisationsnummer visas', problem: 'Low', check: 'Low' },
   'UT-03': { title: 'Reduced price based on the lowest price in the last 30 days', sv: 'Rabatt räknad från lägsta priset senaste 30 dagarna', problem: 'High', check: 'Medium' },
-  'UT-19': { title: 'Product safety details on product pages (GPSR)', sv: 'Produktsäkerhetsuppgifter på produktsidor (GPSR)', problem: 'Medium', check: 'Medium' },
+  'UT-19': { title: 'Product safety details on product pages (GPSR)', sv: 'Produktsäkerhetsuppgifter på produktsidor (GPSR)', problem: 'Medium', check: 'Observation' },
   'UT-20': { title: 'Chatbot says it is an AI', sv: 'Chattboten talar om att den är en AI', problem: 'Medium', check: 'Observation' },
   'UT-21': { title: 'No tracking before cookie consent', sv: 'Ingen spårning innan samtycke', problem: 'High', check: 'Low' },
   'UT-22': { title: 'Terms up to date (no link to the closed ODR platform)', sv: 'Aktuella villkor (ingen länk till den nedlagda ODR-plattformen)', problem: 'Low', check: 'Low' }
@@ -55,7 +55,7 @@ export function describe(check) {
     case 'UT-13': return d.link ? `Link found: "${d.link}".` : 'No link to an accessibility statement on the front page.';
     case 'UT-14': return d.words && d.words.length ? `Words seen: ${d.words.join(', ')}. Check that each claim is specific and proven.` : 'No generic environmental words seen.';
     case 'UT-17': return check.result === 'ok' ? 'Organisation number shown.' : 'No organisation number found on the front page.';
-    case 'UT-19': return d.missing && d.missing.length ? `Of ${d.checked} product pages, ${d.missing.length} show no manufacturer name with contact details: ${d.missing.slice(0, 3).join(', ')}.` : `All ${d.checked} sampled product pages name the manufacturer with contact details.`;
+    case 'UT-19': return d.missing && d.missing.length ? `Of ${d.checked} product pages, ${d.missing.length} show neither manufacturer contact details nor a product safety section: ${d.missing.slice(0, 3).join(', ')}. Confirm by hand.` : `All ${d.checked} sampled product pages show manufacturer details or a product safety section.`;
     case 'UT-20': return `Chat widget found (${(d.vendors || []).join(', ')}). Check that it tells visitors they are talking to an AI.`;
     case 'UT-21': return check.result === 'ok' ? 'No tracking started before a cookie choice.' : check.result === 'check' ? 'Only Google measurement without cookies (Consent Mode) before a choice.' : `Started before any cookie choice: ${[...(d.trackers || []), ...(d.cookies || []).map((c) => 'cookie ' + c)].join(', ')}.`;
     case 'UT-22': return `Link to the EU ODR platform (closed 20 July 2025) on ${d.where || 'the site'}: "${d.link}". Remove it.`;
@@ -220,7 +220,7 @@ export function openStore(dir) {
       const s = site(siteId);
       // UT-19 product safety details, one finding for the sampled product pages
       if (deep.products.length) {
-        const missing = deep.products.filter((p) => !(p.gpsr.label && p.gpsr.contact)).map((p) => new URL(p.url).pathname.slice(0, 60));
+        const missing = deep.products.filter((p) => !(p.gpsr.label && p.gpsr.contact) && !p.gpsr.section).map((p) => new URL(p.url).pathname.slice(0, 60));
         const c = { rule: 'UT-19', result: missing.length ? 'check' : 'ok', detail: { checked: deep.products.length, missing } };
         applyFn({ siteId, rule: 'UT-19', place: 'Product pages', outcome: missing.length ? 'fail' : 'pass', severity: RULES['UT-19'].check, latest: describe(c), evidence, source: 'Scheduled scan', scanId, at });
       }
