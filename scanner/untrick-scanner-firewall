@@ -1,0 +1,19 @@
+#!/bin/sh
+# Keep the Untrick scanner container away from the home network, the Tailscale
+# network and the Pi's own services. Run before the container starts.
+set -e
+NET=untrick-scan
+BR=br-untrick
+docker network inspect "$NET" >/dev/null 2>&1 || \
+  docker network create --driver bridge --subnet 172.30.0.0/24 -o com.docker.network.bridge.name="$BR" "$NET" >/dev/null
+
+# Container -> the Pi itself: only replies to connections the Pi opened.
+iptables -C INPUT -i "$BR" -j DROP 2>/dev/null || iptables -I INPUT 1 -i "$BR" -j DROP
+iptables -C INPUT -i "$BR" -m conntrack --ctstate ESTABLISHED,RELATED -j ACCEPT 2>/dev/null || \
+  iptables -I INPUT 1 -i "$BR" -m conntrack --ctstate ESTABLISHED,RELATED -j ACCEPT
+
+# Container -> anything private, Tailscale or link-local: blocked. Internet: allowed.
+for DST in 10.0.0.0/8 172.16.0.0/12 192.168.0.0/16 100.64.0.0/10 169.254.0.0/16 224.0.0.0/4; do
+  iptables -C DOCKER-USER -i "$BR" -d "$DST" -j DROP 2>/dev/null || iptables -I DOCKER-USER 1 -i "$BR" -d "$DST" -j DROP
+done
+iptables -C DOCKER-USER -i "$BR" -o tailscale0 -j DROP 2>/dev/null || iptables -I DOCKER-USER 1 -i "$BR" -o tailscale0 -j DROP

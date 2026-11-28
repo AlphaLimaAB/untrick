@@ -1,0 +1,11 @@
+{
+  "name": "untrick-scanner",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Untrick instant check: a few automatic public-page checks in a locked-down headless browser.",
+  "dependencies": {
+    "axe-core": "4.14.1",
+    "playwright": "1.65.1"
+  }
+}
