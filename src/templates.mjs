@@ -132,6 +132,7 @@ export function homePage({ site, t, lang, paths, alt }) {
   const { bookHref, contactHref } = links(site, t);
   const body = `
 <form id="scan-form" class="flow" action="${esc(site.form.endpoint)}" method="post"
+  data-scanner="${esc(site.scanner && site.scanner.endpoint ? site.scanner.endpoint : '')}"
   data-endpoint="${esc(site.form.endpoint)}"
   data-provider="${esc(site.form.provider)}"
   data-error-url="${esc(f.errorUrl)}"
@@ -148,6 +149,7 @@ export function homePage({ site, t, lang, paths, alt }) {
       <button class="btn" type="submit">${esc(s.submit)}</button>
     </div>
     <p class="note">${esc(s.note)}</p>
+    <p class="areas">${esc(s.areas)}</p>
   </section>
 
   <section class="step panel" data-step="2" aria-labelledby="t-email">${progress(t, 2)}
@@ -183,6 +185,13 @@ export function homePage({ site, t, lang, paths, alt }) {
 <section class="done" id="thanks" tabindex="-1" aria-labelledby="t-done" hidden>
 <div class="panel">
   <h2 id="t-done" class="title">${marked(f.doneTitleBefore, f.doneTitleMark, f.doneTitleAfter, UNDERLINE, 'mark line')}</h2>
+  <section class="quick" id="quick" aria-labelledby="t-quick" data-i18n="${esc(JSON.stringify(f.quick))}" hidden>
+    <h3 id="t-quick">${esc(f.quick.title)}</h3>
+    <p class="quick-status" aria-live="polite">${esc(f.quick.running)}</p>
+    <p class="score" hidden><span class="score-num"></span> <span>${esc(f.quick.scoreLabel)}</span></p>
+    <ul class="quick-list"></ul>
+    <p class="quick-note">${esc(f.quick.note)}</p>
+  </section>
   <ol class="timeline">
     <li><span class="dot on"></span><span><b>${esc(f.doneNow)}</b> · ${esc(f.doneNowBody)}</span></li>
     <li><span class="dot"></span><span><b>${esc(f.done24)}</b> · ${esc(f.done24Body)}</span></li>
@@ -195,7 +204,8 @@ export function homePage({ site, t, lang, paths, alt }) {
 </div>
 <div class="compare-block">
   <h3>${esc(t.compare.title)}</h3>
-  <p class="muted">${esc(t.compare.intro)}</p>${compareTable({ t, paths, bookHref, contactHref, done: true })}
+  <p class="muted">${esc(t.compare.intro)}</p>
+  <p class="risk">${esc(t.compare.risk)}</p>${compareTable({ t, paths, bookHref, contactHref, done: true })}
 </div>
 </section>`;
 
@@ -235,7 +245,8 @@ export function pricingPage({ site, t, lang, paths, alt }) {
   const body = `
 <div class="page wide">
   <h1>${esc(t.compare.title)}</h1>
-  <p class="muted lead">${esc(t.compare.intro)}</p>${compareTable({ t, paths, bookHref, contactHref, done: false })}
+  <p class="muted lead">${esc(t.compare.intro)}</p>
+  <p class="risk">${esc(t.compare.risk)}</p>${compareTable({ t, paths, bookHref, contactHref, done: false })}
 </div>`;
   return layout({ site, t, lang, paths, alt, page: 'pricing', title: `${t.menu.pricing} – ${site.name}`, description: t.compare.intro, body });
 }

@@ -25,7 +25,8 @@
     "urlLabel": "Your website",
     "urlPlaceholder": "yourshop.com",
     "submit": "Run a check",
-    "note": "Free · No login · Report by email within 24 hours"
+    "note": "Free · No login · Report by email within 24 hours",
+    "areas": "Withdrawal · Prices · Checkout · Cookies · Accessibility · Green claims · Reviews"
   },
   "flow": {
     "emailTitle": "Where should the report go?",
@@ -59,7 +60,32 @@
     "errorEmail": "Please enter a valid email address.",
     "errorConsent": "Please tick the consent box to continue.",
     "errorWait": "Please wait a few seconds and try again.",
-    "errorNetwork": "Something went wrong. Please try again shortly."
+    "errorNetwork": "Something went wrong. Please try again shortly.",
+    "quick": {
+      "title": "Instant check",
+      "running": "Running the automatic checks of your home page…",
+      "scoreLabel": "points out of 100",
+      "note": "Automatic checks of the home page. The report covers the whole purchase flow.",
+      "unverified": "We'll show the instant check once we've confirmed the site is yours. The report still arrives within 24 hours.",
+      "failed": "The instant check couldn't read the site right now. We'll go through it by hand in the report.",
+      "ok": "Looks good",
+      "problem": "Needs fixing",
+      "check": "Needs checking",
+      "unknown": "Couldn't be checked",
+      "found": "Found:",
+      "seriousErrors": "serious errors",
+      "noReject": "No reject button on the first screen",
+      "noLink": "No link found",
+      "r_UT10": "Cookie banner",
+      "r_UT01": "Link to the withdrawal function",
+      "r_UT12": "Accessibility of the home page",
+      "r_UT13": "Accessibility information",
+      "r_UT14": "Green claims",
+      "r_UT17": "Company details",
+      "noGreen": "No generic green claims",
+      "orgFound": "Registration number shown",
+      "orgMissing": "No registration number found"
+    }
   },
   "pages": {
     "how": {
@@ -75,7 +101,7 @@
   },
   "checks": {
     "title": "What we check",
-    "intro": "We walk through your checkout, sign-up and cancellation flows like a customer would – and compare them with the rules.",
+    "intro": "Seven areas and more than 20 checks. We go through the home page, product pages, checkout, withdrawal flow and terms just as a customer would, and compare with the rules.",
     "tagNow": "Applies now",
     "tagSoon": "Coming",
     "items": [
@@ -86,6 +112,16 @@
       },
       {
         "status": "now",
+        "title": "Prices and discounts",
+        "body": "That a reduced price shows the lowest price of the last 30 days, and that the full price with delivery and fees is clear before the order."
+      },
+      {
+        "status": "now",
+        "title": "The cookie banner",
+        "body": "That rejecting cookies is as easy as accepting them on the first screen, with nothing ticked in advance."
+      },
+      {
+        "status": "now",
         "title": "Misleading design",
         "body": "Fake urgency (\"only 2 left\"), pre-ticked add-ons, fees hidden until the last step and \"no thanks\" buttons that guilt-trip."
       },
@@ -93,6 +129,21 @@
         "status": "now",
         "title": "Subscriptions",
         "body": "How easy it is to cancel compared with signing up, and how free trials and renewals are communicated."
+      },
+      {
+        "status": "now",
+        "title": "Accessibility",
+        "body": "Since 28 June 2025, online shops must be usable by everyone, whatever their abilities. We test the site automatically against WCAG and check that you publish accessibility information."
+      },
+      {
+        "status": "now",
+        "title": "Green claims",
+        "body": "From 27 September 2026, EU rules ban generic claims such as \"eco-friendly\" or \"climate neutral\" unless you can show recognised excellent environmental performance. We find them for you."
+      },
+      {
+        "status": "now",
+        "title": "Reviews and company details",
+        "body": "That you say whether and how reviews are checked, and that company name, registration number and contact details are shown."
       },
       {
         "status": "soon",
@@ -145,6 +196,14 @@
     ],
     "rows": [
       {
+        "label": "Instant check with a score",
+        "values": [
+          "yes",
+          "yes",
+          "yes"
+        ]
+      },
+      {
         "label": "Check of the site",
         "values": [
           "Once",
@@ -177,7 +236,23 @@
         ]
       },
       {
-        "label": "Alerts when the rules change, such as the Digital Fairness Act",
+        "label": "We check that your fixes work",
+        "values": [
+          "no",
+          "yes",
+          "yes"
+        ]
+      },
+      {
+        "label": "Evidence archive with dated screenshots",
+        "values": [
+          "no",
+          "yes",
+          "yes"
+        ]
+      },
+      {
+        "label": "Rule radar: new rules explained before they apply",
         "values": [
           "no",
           "yes",
@@ -205,7 +280,8 @@
     "freeDone": "Requested",
     "monitorCta": "Book a walkthrough",
     "enterpriseCta": "Contact us",
-    "enterpriseSubject": "Untrick Enterprise"
+    "enterpriseSubject": "Untrick Enterprise",
+    "risk": "If a shop breaks consumer law, a court can, at the request of the Swedish Consumer Ombudsman, impose a penalty of up to four percent of turnover."
   },
   "faq": {
     "title": "FAQ",
@@ -252,7 +328,7 @@
       },
       {
         "heading": "What we collect",
-        "body": "When you request a free check, we store the website you enter, your email address, the language you chose, whether you allowed us to go through the checkout, whether you plan to place a test order, and the time."
+        "body": "When you request a free check, we store the website you enter, your email address, the language you chose, whether you allowed us to go through the checkout, whether you plan to place a test order, and the time. When you enter a web address, we also run an automatic instant check of the site's home page on our own server in Sweden. The address and the result are kept for at most two hours and are not linked to you."
       },
       {
         "heading": "Why, and on what legal basis",
