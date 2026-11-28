@@ -9,7 +9,8 @@ ExecStartPre=/usr/local/sbin/untrick-scanner-firewall
 ExecStartPre=-/usr/bin/docker rm -f untrick-scanner
 ExecStart=/usr/bin/docker run --rm --name untrick-scanner --network untrick-scan -p 127.0.0.1:8090:8090 \
   --memory 1500m --cpus 2 --pids-limit 512 --cap-drop ALL --security-opt no-new-privileges \
-  --read-only --tmpfs /tmp:size=512m --tmpfs /home/pwuser:size=256m,uid=1001 --init untrick-scanner:1
+  --read-only --tmpfs /tmp:size=512m --tmpfs /home/pwuser:size=256m,uid=1001 \
+  -v /srv/untrick-scanner/data:/data -e DATA_DIR=/data -e SCAN_HOURS=1-6 --init untrick-scanner:1
 ExecStop=/usr/bin/docker stop untrick-scanner
 Restart=always
 RestartSec=5
