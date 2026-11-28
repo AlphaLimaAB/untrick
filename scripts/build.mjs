@@ -3,7 +3,7 @@
 import { readFileSync, writeFileSync, mkdirSync, rmSync, cpSync } from 'node:fs';
 import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { homePage, howPage, pricingPage, faqPage, privacyPage } from '../src/templates.mjs';
+import { homePage, howPage, pricingPage, faqPage, contactPage, privacyPage } from '../src/templates.mjs';
 
 const root = join(dirname(fileURLToPath(import.meta.url)), '..');
 const dist = join(root, 'dist');
@@ -35,6 +35,7 @@ const pathsFor = (lang, t) => {
     how: `${home}${t.pages.how.slug}/`,
     pricing: `${home}${t.pages.pricing.slug}/`,
     faq: `${home}${t.pages.faq.slug}/`,
+    contact: `${home}${t.contact.slug}/`,
     privacy: `${home}${t.privacy.slug}/`
   };
 };
@@ -51,7 +52,7 @@ cpSync(join(root, 'src/assets'), join(dist, 'assets'), { recursive: true });
 
 const texts = Object.fromEntries(site.languages.map((lang) => [lang, fill(readJson(`content/${lang}.json`))]));
 const allPaths = Object.fromEntries(site.languages.map((lang) => [lang, pathsFor(lang, texts[lang])]));
-const templates = { home: homePage, how: howPage, pricing: pricingPage, faq: faqPage, privacy: privacyPage };
+const templates = { home: homePage, how: howPage, pricing: pricingPage, faq: faqPage, contact: contactPage, privacy: privacyPage };
 
 const pages = [];
 for (const lang of site.languages) {

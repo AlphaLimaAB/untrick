@@ -1,7 +1,7 @@
 {
   "meta": {
     "title": "{name} – Följer din butik konsumentreglerna? Gratis koll",
-    "description": "Ange din webbadress så går vi igenom ångerknappen, kassan och cookiebannern mot konsumentreglerna. Gratis rapport i mejlen inom 24 timmar."
+    "description": "Ange ditt domännamn så kontrollerar vi ångerknappen, kassan och cookiebannern mot konsumentreglerna. Gratis rapport i mejlen inom 24 timmar."
   },
   "ui": {
     "skip": "Hoppa till innehållet",
@@ -22,7 +22,7 @@
     "titleBefore": "Följer din butik ",
     "titleMark": "konsumentreglerna",
     "titleAfter": "?",
-    "urlLabel": "Din webbplats",
+    "urlLabel": "Ditt domännamn",
     "urlPlaceholder": "dinbutik.se",
     "submit": "Gör en koll",
     "note": "Gratis · Ingen inloggning · Rapport i mejlen inom 24 timmar",
@@ -53,10 +53,10 @@
     "done24Body": "rapporten i din inkorg",
     "doneTest": "Efter din testorder",
     "doneTestBody": "ett tillägg om ångerflödet",
-    "bookText": "Vill du gå igenom fynden tillsammans? 15 minuter på video.",
-    "bookButton": "Boka en tid",
+    "bookText": "Vill du gå igenom resultatet tillsammans? 15 minuter på video.",
+    "bookButton": "Boka en genomgång",
     "bookSubject": "Genomgång av min Untrick-rapport",
-    "errorUrl": "Ange en webbadress, till exempel dinbutik.se.",
+    "errorUrl": "Ange ett domännamn, till exempel dinbutik.se.",
     "errorEmail": "Ange en giltig e-postadress.",
     "errorConsent": "Kryssa i godkännandet för att fortsätta.",
     "errorWait": "Vänta några sekunder och försök igen.",
@@ -97,58 +97,58 @@
     "faq": {
       "slug": "fragor"
     },
-    "cta": "Gör en koll av din butik"
+    "cta": "Gör en koll av din domän"
   },
   "checks": {
     "title": "Det här kontrollerar vi",
-    "intro": "Sju områden och drygt 20 kontroller. Vi går igenom startsida, produktsidor, kassa, ångerflöde och villkor på samma sätt som en kund, och jämför med reglerna.",
+    "intro": "Sju områden och fler än 20 kontrollpunkter. Vi går igenom sajten som en kund: startsida, produktsidor, kassa, ångerflöde och villkor.",
     "tagNow": "Gäller nu",
     "tagSoon": "På väg",
     "items": [
       {
         "status": "now",
         "title": "Ångerknappen",
-        "body": "Sedan 19 juni 2026 ska kunder som handlat online kunna ångra köpet via en tydlig funktion på sajten, med bekräftelsesteg och kvittens."
+        "body": "Sedan 19 juni 2026 ska kunderna kunna ångra ett köp direkt på sajten. Ni ska ha en tydligt märkt ångerfunktion med ett bekräftelsesteg, och kunden ska få en kvittens direkt."
       },
       {
         "status": "now",
         "title": "Priser och rabatter",
-        "body": "Att ett nedsatt pris visar det lägsta priset de senaste 30 dagarna, och att hela priset med frakt och avgifter syns innan beställningen."
+        "body": "När ni sänker ett pris ska ni visa det lägsta priset från de senaste 30 dagarna och räkna rabatten från det. Totalpriset, med frakt och avgifter, ska synas innan kunden beställer."
       },
       {
         "status": "now",
         "title": "Cookiebannern",
-        "body": "Att det är lika lätt att neka som att godkänna kakor redan på första skärmen, utan förkryssade val."
+        "body": "Det ska vara lika lätt att neka kakor som att godkänna dem, redan på första skärmen. Inga val får vara förkryssade."
       },
       {
         "status": "now",
         "title": "Vilseledande design",
-        "body": "Falsk brådska (\"bara 2 kvar\"), förkryssade tillval, dolda avgifter i sista steget och \"nej tack\"-knappar som skuldbelägger."
+        "body": "Ni får inte använda falsk brådska som \"bara 2 kvar\", förkryssade tillval, avgifter som dyker upp först i sista steget eller \"nej tack\"-knappar som skuldbelägger kunden."
       },
       {
         "status": "now",
         "title": "Prenumerationer",
-        "body": "Hur lätt det är att säga upp jämfört med att teckna, och hur provperioder och förnyelser kommuniceras."
+        "body": "Ni ska tydligt visa när en provperiod blir betald, vad den kostar och hur kunden säger upp den. Vi jämför också hur lätt det är att säga upp med hur lätt det är att teckna."
       },
       {
         "status": "now",
         "title": "Tillgänglighet",
-        "body": "Sedan 28 juni 2025 ska e-handel kunna användas av alla, oavsett funktionsförmåga. Vi testar sajten automatiskt mot WCAG och kontrollerar att ni informerar om tillgängligheten."
+        "body": "Sedan 28 juni 2025 ska e-handel gå att använda för alla, oavsett funktionsförmåga. Ni ska också publicera information om hur sajten uppfyller kraven. Vi testar sajten mot WCAG 2.1 AA."
       },
       {
         "status": "now",
         "title": "Miljöpåståenden",
-        "body": "Från 27 september 2026 förbjuder EU-reglerna allmänna påståenden som \"miljövänlig\" eller \"klimatneutral\" om ni inte kan visa ett erkänt utmärkt miljöresultat. Vi letar upp dem åt dig."
+        "body": "Från 27 september 2026 får ni inte kalla en produkt \"miljövänlig\", \"grön\" eller liknande utan en erkänd miljömärkning, till exempel Svanen eller EU-blomman. Ni får inte heller kalla en produkt klimatneutral för att ni klimatkompenserar. Vi letar upp sådana påståenden på sajten."
       },
       {
         "status": "now",
         "title": "Recensioner och företagsuppgifter",
-        "body": "Att ni berättar om och hur recensionerna kontrolleras, och att företagsnamn, organisationsnummer och kontaktuppgifter syns."
+        "body": "Visar ni kundrecensioner ska ni berätta om och hur ni kontrollerar att de kommer från riktiga kunder. Företagsnamn, organisationsnummer, adress och e-post ska vara lätta att hitta."
       },
       {
         "status": "soon",
         "title": "Digital Fairness Act",
-        "body": "EU-kommissionen lade fram förslaget 11 november 2026. Vi visar var du redan i dag avviker från de föreslagna kraven, så att du hinner rätta i lugn och ro."
+        "body": "EU-kommissionen presenterade lagförslaget den 11 november 2026. Det är inte lag än. Vi visar vad på sajten som behöver ändras om förslaget antas, så att ni hinner förbereda er."
       }
     ]
   },
@@ -156,22 +156,22 @@
     "title": "Så fungerar det",
     "steps": [
       {
-        "title": "Ange din adress",
-        "body": "Ingen installation och ingen inloggning hos dig."
+        "title": "Ange ditt domännamn",
+        "body": "Utan installation och inloggning."
       },
       {
-        "title": "Vi skannar flödena",
-        "body": "Våra agenter klickar igenom sajten och jämför med ett regelbibliotek som granskas av jurister."
+        "title": "Vi går igenom sajten som en kund",
+        "body": "Automatiska tester och en genomgång av hela köpflödet, från startsidan till kassan. Varje fynd kopplas till en bestämd regel i konsumentlagstiftningen."
       },
       {
-        "title": "Du får rapporten",
-        "body": "Skärmbilder, vilken regel det gäller, hur allvarligt det är och hur du rättar det."
+        "title": "Du vet exakt vad du ska ändra",
+        "body": "För varje brist: vad som är fel, vilken regel som gäller, hur allvarligt det är och hur du åtgärdar det. Med en skärmdump som underlag."
       }
     ]
   },
   "compare": {
     "title": "Gratis koll eller bevakning?",
-    "intro": "Den gratis kollen visar var din butik står i dag. Sajter och regler ändras varje vecka, så bevakningen ser till att du fortsätter följa reglerna.",
+    "intro": "Den gratis kollen visar var din butik står i dag. Sajter och regler ändras hela tiden. Med bevakningen kontrollerar vi butiken varje vecka och larmar när något behöver åtgärdas.",
     "yes": "Ingår",
     "no": "Ingår inte",
     "plans": [
@@ -212,7 +212,7 @@
         ]
       },
       {
-        "label": "Rapport med skärmbilder, regel och åtgärd",
+        "label": "Rapport med brister och åtgärder",
         "values": [
           "yes",
           "yes",
@@ -228,7 +228,7 @@
         ]
       },
       {
-        "label": "Larm när något på sajten bryter mot reglerna",
+        "label": "Larm när sajten bryter mot reglerna",
         "values": [
           "no",
           "yes",
@@ -236,7 +236,7 @@
         ]
       },
       {
-        "label": "Vi kontrollerar att era rättningar fungerar",
+        "label": "Bekräftelse när en brist är åtgärdad",
         "values": [
           "no",
           "yes",
@@ -244,7 +244,7 @@
         ]
       },
       {
-        "label": "Bevisarkiv med daterade skärmbilder",
+        "label": "Arkiv och daterade skärmdumpar",
         "values": [
           "no",
           "yes",
@@ -252,7 +252,7 @@
         ]
       },
       {
-        "label": "Regelradar: nya regler förklarade innan de gäller",
+        "label": "Besked om nya regler innan de börjar gälla",
         "values": [
           "no",
           "yes",
@@ -260,7 +260,7 @@
         ]
       },
       {
-        "label": "Antal sajter",
+        "label": "Antal kontrollerade sajter",
         "values": [
           "1",
           "1",
@@ -268,7 +268,7 @@
         ]
       },
       {
-        "label": "Vit etikett för byråer",
+        "label": "Rapporter i byråns eget varumärke",
         "values": [
           "no",
           "no",
@@ -288,7 +288,7 @@
     "items": [
       {
         "q": "Är det här juridisk rådgivning?",
-        "a": "Nej. {name} är en automatisk bevakningstjänst. Regelbiblioteket granskas av vår juristpartner, men rapporten ersätter inte rådgivning i ett enskilt fall."
+        "a": "Nej. {name} kontrollerar e-handelssajter mot konsumentreglerna och visar var sajten avviker. Rapporten ersätter inte juridisk rådgivning i ett enskilt fall."
       },
       {
         "q": "Behöver ni tillgång till våra system?",
@@ -328,15 +328,15 @@
       },
       {
         "heading": "Vilka uppgifter vi samlar in",
-        "body": "När du beställer en gratis koll sparar vi webbadressen du anger, din e-postadress, valt språk, om du har godkänt att vi går igenom kassan, om du tänker lägga en testorder och tidpunkten. Anger du en webbadress gör vi också en automatisk snabbkoll av sajtens startsida på vår egen server i Sverige. Adressen och resultatet sparas i högst två timmar och kopplas inte till dig."
+        "body": "När du beställer en gratis koll sparar vi webbadressen du anger, din e-postadress, valt språk, om du har godkänt att vi går igenom kassan, om du tänker lägga en testorder och tidpunkten. Anger du en webbadress gör vi också en automatisk snabbkoll av sajtens startsida på vår egen server i Sverige. Adressen och resultatet sparas i högst två timmar och kopplas inte till dig. Skickar du ett meddelande via kontaktformuläret sparar vi ämnet, din e-postadress, domännamnet och meddelandet om du anger dem, och tidpunkten."
       },
       {
         "heading": "Varför och med vilken rättslig grund",
-        "body": "Vi använder uppgifterna för att ta fram och skicka rapporten och för en uppföljning. Grunden är ditt samtycke, som du kan återkalla när som helst."
+        "body": "Vi använder uppgifterna för att ta fram och skicka rapporten, svara på dina meddelanden och för en uppföljning. Grunden är ditt samtycke, som du kan återkalla när som helst."
       },
       {
         "heading": "Var uppgifterna lagras och hur länge",
-        "body": "Uppgifterna lagras hos vårt formulärverktyg inom EU. Vi raderar dem senast 12 månader efter att rapporten skickats, eller tidigare om du ber oss."
+        "body": "Uppgifterna lagras hos vårt formulärverktyg inom EU. Vi raderar dem senast 12 månader efter att rapporten skickats eller vi svarat dig, eller tidigare om du ber oss."
       },
       {
         "heading": "Kakor och besöksstatistik",
@@ -347,5 +347,36 @@
         "body": "Du har rätt att få tillgång till, rätta och radera dina uppgifter, och att klaga hos Integritetsskyddsmyndigheten (IMY)."
       }
     ]
+  },
+  "contact": {
+    "slug": "kontakt",
+    "title": "Kontakt",
+    "intro": "Berätta vad du vill ha hjälp med, så hör vi av oss inom en arbetsdag.",
+    "topicLabel": "Vad gäller det?",
+    "topics": [
+      {
+        "value": "monitoring",
+        "label": "Bevakning – boka en genomgång"
+      },
+      {
+        "value": "review",
+        "label": "Genomgång av min rapport"
+      },
+      {
+        "value": "enterprise",
+        "label": "Enterprise – flera sajter eller byrå"
+      },
+      {
+        "value": "other",
+        "label": "Något annat"
+      }
+    ],
+    "websiteLabel": "Domännamn (frivilligt)",
+    "messageLabel": "Meddelande (frivilligt)",
+    "consent": "Jag godkänner att {name} sparar uppgifterna för att svara mig.",
+    "submit": "Skicka",
+    "done": "Tack! Vi hör av oss inom en arbetsdag.",
+    "orEmail": "Du kan också mejla oss på",
+    "errorTopic": "Välj vad det gäller."
   }
 }

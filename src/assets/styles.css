@@ -123,6 +123,17 @@ main > *, .done > * { min-width: 0; }
 .compare-block h3 { margin: 0 0 8px; font-size: clamp(26px, 4vw, 34px); line-height: 1.1; font-weight: 900; letter-spacing: -.02em; }
 .page.wide { max-width: 960px; }
 .lead { max-width: 640px; margin: 0 0 8px; }
+/* On the comparison the intro and the risk line follow the table's width. */
+.page.wide .lead, .page.wide .risk, .compare-block .lead, .compare-block .risk { max-width: none; }
+.contact-form { display: flex; flex-direction: column; gap: 10px; max-width: 560px; margin: 8px 0 24px; }
+.contact-form fieldset { border: 0; padding: 0; margin: 0 0 8px; display: flex; flex-direction: column; gap: 8px; }
+.contact-form legend { padding: 0; margin-bottom: 8px; }
+.contact-form .radio { display: flex; gap: 10px; align-items: center; font-size: 17px; }
+.contact-form .radio input { width: 22px; height: 22px; margin: 0; accent-color: var(--ink); }
+.contact-form input[type="email"], .contact-form input[type="text"], .contact-form textarea { border: 2px solid var(--ink); border-radius: 14px; padding: 14px 16px; font: inherit; font-size: 18px; color: var(--ink); background: #fff; }
+.contact-form textarea { resize: vertical; min-height: 110px; }
+.contact-form .btn { align-self: flex-start; margin-top: 8px; }
+.contact-done { font-size: 20px; font-weight: 700; padding: 16px 18px; background: #fff3b0; border-radius: 12px; }
 .table-wrap { position: relative; max-width: 100%; overflow-x: auto; margin-top: 20px; }
 .compare { width: 100%; min-width: 660px; border-collapse: collapse; font-size: 15px; }
 .compare th, .compare td { padding: 14px 12px; text-align: left; vertical-align: top; border-bottom: 1px solid var(--line); }
