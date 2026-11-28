@@ -1,6 +1,8 @@
 // Untrick customer mode, command line. Run on the Pi:
 //   docker exec untrick-scanner node admin.mjs <command> ...
 // Commands are listed by `node admin.mjs help`.
+import { mkdirSync, readdirSync, rmSync, existsSync } from 'node:fs';
+import path from 'node:path';
 import { dataDir, openStore, day, siteIdFor, RULES, OPEN, TZ } from './store.mjs';
 
 const HELP = `Untrick customer mode
@@ -19,6 +21,7 @@ const HELP = `Untrick customer mode
   alerts [DAYS]                         What needs attention from the last DAYS days (default 7)
   summary <site> <YYYY-MM> [--lang sv|en]
                                         Monthly summary in Markdown for the customer report
+  backup                                Consistent copy of the database to data/backup/ (keeps 30)
 `;
 
 const DATA = dataDir();
@@ -194,6 +197,18 @@ switch (cmd) {
     ];
     if (t.draft) console.error(t.draft);
     console.log(out.join('\n'));
+    break;
+  }
+  case 'backup': {
+    // A consistent snapshot while the scanner keeps running. The evidence files never change, so they are copied as they are.
+    const dir = path.join(DATA, 'backup');
+    mkdirSync(dir, { recursive: true });
+    const file = path.join(dir, `untrick-${day(new Date().toISOString())}.sqlite`);
+    if (existsSync(file)) rmSync(file);
+    store.db.exec(`VACUUM INTO '${file.replace(/'/g, "''")}'`);
+    const old = readdirSync(dir).filter((f) => /^untrick-\d{4}-\d{2}-\d{2}\.sqlite$/.test(f)).sort().slice(0, -30);
+    for (const f of old) rmSync(path.join(dir, f));
+    console.log(`backup/${path.basename(file)}`);
     break;
   }
   default:
