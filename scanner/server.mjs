@@ -23,6 +23,7 @@ import path from 'node:path';
 import { createRequire } from 'node:module';
 import { chromium } from 'playwright';
 import { dataDir, openStore, day, localHour } from './store.mjs';
+import { deepScan, priceRound, inSalesSeason } from './deep.mjs';
 
 const require = createRequire(import.meta.url);
 const AXE = readFileSync(require.resolve('axe-core/axe.min.js'), 'utf8');
@@ -34,6 +35,7 @@ const MAX_QUEUE = 8;
 const KEEP_MS = 2 * 3600 * 1000;
 const NAV_TIMEOUT = 20000;
 const SCAN_TIMEOUT = 60000;
+const DEEP_TIMEOUT = 240000; // scheduled customer scans also visit product and terms pages
 const DATA = dataDir();
 const store = DATA ? openStore(DATA) : null;
 // Scheduled scans run at night, Stockholm time (a range like "1-6" means 01:00 to 06:59).
@@ -128,21 +130,58 @@ function pageFacts() {
   const text = [document.body ? document.body.innerText : '']
     .concat(roots.slice(1).map((r) => (r.host && r.host.innerText) || [...r.children].map((c) => c.innerText || '').join(' ')))
     .join('\n');
+  const anchors = all('a').slice(0, 3000);
   return {
     buttons: clickables.filter(visible).map(label).filter(Boolean).slice(0, 300),
-    links: all('a').map(label).filter(Boolean).slice(0, 3000),
+    links: anchors.map(label).filter(Boolean),
+    anchors: anchors.map((a) => ({ href: a.href || '', text: label(a) })).filter((a) => /^https?:/.test(a.href)),
+    struck: all('del, s, strike').filter((e) => /\d/.test(e.textContent || '')).length,
     text: text.slice(0, 400000)
   };
 }
 
-async function runChecks(page) {
+// Tracking that starts before the visitor has made a cookie choice (we never click anything).
+const PIXELS = [
+  [/^https?:\/\/(www\.)?facebook\.com\/tr/i, 'Meta Pixel'], [/analytics\.tiktok\.com\/api/i, 'TikTok Pixel'],
+  [/bat\.bing\.com\/action/i, 'Microsoft Ads'], [/px\.ads\.linkedin\.com/i, 'LinkedIn Insight'],
+  [/ct\.pinterest\.com/i, 'Pinterest Tag'], [/\.clarity\.ms\/collect/i, 'Microsoft Clarity'],
+  [/(in|vc|vars)\.hotjar\.(com|io)/i, 'Hotjar'], [/tr\.snapchat\.com/i, 'Snap Pixel'],
+  [/googleads\.g\.doubleclick\.net|googleadservices\.com\/pagead\/conversion/i, 'Google Ads'],
+  [/\.criteo\.(com|net)/i, 'Criteo'], [/track\.adform\.net/i, 'Adform']
+];
+const GA_BEACON = /(google-analytics\.com|analytics\.google\.com)\/(g\/)?collect/i;
+const TRACKING_COOKIES = /^(_ga|_ga_\w+|_gid|_gcl_au|_gcl_aw|_fbp|_fbc|_ttp|_uetsid|_uetvid|_clck|_clsk|_hjSessionUser_\d+|_hjSession_\d+|_pin_unauth|_scid|IDE|test_cookie|li_sugr|bcookie|MUID|ANONCHK)$/;
+const CHAT = [
+  [/widget\.intercom\.io|js\.intercomcdn\.com/i, 'Intercom'], [/static\.zdassets\.com/i, 'Zendesk'], [/code\.tidio\.co/i, 'Tidio'],
+  [/js\.driftt\.com/i, 'Drift'], [/cdn\.livechatinc\.com/i, 'LiveChat'], [/client\.crisp\.chat/i, 'Crisp'],
+  [/js\.usemessages\.com/i, 'HubSpot chat'], [/gorgias\.chat/i, 'Gorgias'], [/userlike/i, 'Userlike'], [/giosg\.com/i, 'Giosg'],
+  [/boost\.ai/i, 'boost.ai'], [/kindly\.ai|kindlycdn\.com/i, 'Kindly'], [/ebi\.ai/i, 'ebi.ai'], [/freshchat/i, 'Freshchat'],
+  [/embedded_svc|embeddedservice/i, 'Salesforce chat'], [/trengo/i, 'Trengo'], [/voiceflow\.com/i, 'Voiceflow'],
+  [/chatbase\.co/i, 'Chatbase'], [/ada\.support|ada\.cx/i, 'Ada'], [/zowie\.ai/i, 'Zowie']
+];
+const ODR_HREF = /ec\.europa\.eu\/(consumers\/)?odr/i;
+const ODR_TEXT = /\bODR\b|tvistlösning online|online dispute resolution|online-tvisteløsning/i;
+
+function trackingCheck(requests, cookies) {
+  const pixels = [...new Set(PIXELS.filter(([re]) => requests.some((u) => re.test(u))).map(([, name]) => name))];
+  const tracked = [...new Set(cookies.map((c) => c.name).filter((n) => TRACKING_COOKIES.test(n)))].slice(0, 8);
+  const ga = requests.filter((u) => GA_BEACON.test(u));
+  const gaFull = ga.some((u) => !/[?&]gcs=G100/.test(u)); // G100 = analytics and ads storage both denied (Consent Mode)
+  if (gaFull) pixels.unshift('Google Analytics');
+  const result = pixels.length || tracked.length ? 'problem' : ga.length ? 'check' : 'ok';
+  return { rule: 'UT-21', area: 'cookies', result, detail: { trackers: pixels, cookies: tracked, googlePings: ga.length > 0 && !gaFull } };
+}
+
+async function runChecks(page, net = { requests: [], cookies: [] }) {
   const frames = page.frames();
-  const facts = { buttons: [], links: [], text: '' };
+  const facts = { buttons: [], links: [], anchors: [], struck: 0, text: '' };
   for (const f of frames) {
     try {
       const r = await f.evaluate(pageFacts);
       facts.buttons.push(...r.buttons);
       facts.links.push(...r.links);
+      facts.anchors.push(...r.anchors);
+      facts.struck += r.struck;
       facts.text += '\n' + r.text;
     } catch (e) { /* cross-origin frame gone or blocked */ }
   }
@@ -198,10 +237,21 @@ async function runChecks(page) {
   // UT-17 company information (organisation number) on the page
   checks.push({ rule: 'UT-17', area: 'company', result: ORGNR.test(facts.text) ? 'ok' : 'check', detail: {} });
 
+  // UT-21 tracking before consent (also part of the cookie area)
+  checks.push(trackingCheck(net.requests, net.cookies));
+
+  // UT-20 chat widgets: shown only when one is found; a person checks that it says it is an AI
+  const chats = [...new Set(CHAT.filter(([re]) => net.requests.some((u) => re.test(u))).map(([, name]) => name))];
+  if (chats.length) checks.push({ rule: 'UT-20', area: 'terms', result: 'check', detail: { vendors: chats } });
+
+  // UT-22 link to the closed EU ODR platform (shown only when found)
+  const odr = facts.anchors.find((a) => ODR_HREF.test(a.href) || ODR_TEXT.test(a.text));
+  if (odr) checks.push({ rule: 'UT-22', area: 'terms', result: 'check', detail: { link: odr.text || odr.href, where: 'Front page' } });
+
   const counted = checks.filter((c) => c.result !== 'unknown');
   const points = counted.reduce((n, c) => n + (c.result === 'ok' ? 1 : c.result === 'check' ? 0.5 : 0), 0);
   const score = counted.length ? Math.round((100 * points) / counted.length) : null;
-  return { checks, score };
+  return { checks, score, facts };
 }
 
 // ---------- browser ----------
@@ -225,7 +275,7 @@ async function saveEvidence(page, dir) {
   return { 'first-screen.png': sha256(first), 'full-page.jpg': sha256(full) };
 }
 
-async function scanUrl(url, evidenceDir = null) {
+async function newContext() {
   const b = await getBrowser();
   const context = await b.newContext({
     userAgent: USER_AGENT, locale: 'sv-SE', viewport: { width: 1280, height: 900 }, bypassCSP: true,
@@ -244,7 +294,14 @@ async function scanUrl(url, evidenceDir = null) {
       return route.abort();
     }
   });
+  return context;
+}
+
+async function scanUrl(url, evidenceDir = null, deep = null) {
+  const context = await newContext();
   const page = await context.newPage();
+  const requests = [];
+  page.on('request', (r) => { if (requests.length < 3000) requests.push(r.url()); });
   try {
     const response = await page.goto(url.toString(), { waitUntil: 'domcontentloaded', timeout: NAV_TIMEOUT });
     await page.waitForLoadState('load', { timeout: 8000 }).catch(() => {});
@@ -252,8 +309,11 @@ async function scanUrl(url, evidenceDir = null) {
     const finalUrl = new URL(page.url());
     if (!(await safeHost(finalUrl.hostname))) throw new Error('blocked redirect');
     const files = evidenceDir ? await saveEvidence(page, evidenceDir) : null;
-    const { checks, score } = await runChecks(page);
-    return { status: 'done', httpStatus: response ? response.status() : null, finalHost: finalUrl.hostname, finalUrl: finalUrl.toString(), checks, score, files };
+    const cookies = await context.cookies().catch(() => []);
+    const { checks, score, facts } = await runChecks(page, { requests, cookies });
+    const out = { status: 'done', httpStatus: response ? response.status() : null, finalHost: finalUrl.hostname, finalUrl: finalUrl.toString(), checks, score, files };
+    if (deep) out.deep = await deep(context, finalUrl, facts, evidenceDir);
+    return out;
   } finally {
     await context.close().catch(() => {});
   }
@@ -266,7 +326,7 @@ const queue = [];
 const queuedSites = new Set();
 let running = false;
 const publicQueued = () => queue.filter((j) => j.kind === 'public').length;
-const withTimeout = (p) => Promise.race([p, new Promise((_, reject) => setTimeout(() => reject(new Error('timeout')), SCAN_TIMEOUT))]);
+const withTimeout = (p, ms = SCAN_TIMEOUT) => Promise.race([p, new Promise((_, reject) => setTimeout(() => reject(new Error('timeout')), ms))]);
 const failReason = (e) => (/timeout/i.test(e.message) ? 'timeout' : /blocked/i.test(e.message) ? 'blocked' : 'unreachable');
 
 async function runPublic(id) {
@@ -302,7 +362,7 @@ async function scanSite(siteId) {
   const url = normaliseUrl(site.url);
   try {
     if (!url || !(await safeHost(url.hostname))) throw new Error('blocked');
-    result = await withTimeout(scanUrl(url, dir));
+    result = await withTimeout(scanUrl(url, dir, (ctx, finalUrl, facts, ev) => deepScan(ctx, finalUrl, facts, ev, DATA)), DEEP_TIMEOUT);
   } catch (e) {
     error = e;
     result = { status: 'failed', reason: failReason(e) };
@@ -316,10 +376,32 @@ async function scanSite(siteId) {
     evidence = dir;
     hash = sha256(record);
   }
-  const changes = store.recordScan({ scanId, siteId, started, result, evidence, sha256: hash });
+  const changes = store.recordScan({ scanId, siteId, started, result, evidence, sha256: hash, salesSeason: inSalesSeason(), dataDir: DATA });
   if (error) throw error;
   const register = changes.filter((c) => c.status).map((c) => `${c.rule}:${c.status}`).join(' ');
   return `${siteId} scheduled ${result.status} score=${result.score} ${register}`;
+}
+
+// Daily price round for one site: today's prices of its tracked product pages, then the 30-day check.
+async function runPrices(siteId) {
+  try {
+    const urls = store.trackedProducts(siteId);
+    const at = new Date().toISOString();
+    const dir = path.posix.join('evidence', siteId, `${day(at)}_prices`);
+    let results = [];
+    if (urls.length) {
+      const context = await newContext();
+      try {
+        results = await withTimeout(priceRound(context, urls, dir, DATA), DEEP_TIMEOUT);
+      } finally {
+        await context.close().catch(() => {});
+      }
+    }
+    const changes = store.recordPriceRound({ siteId, results, at, evidenceDir: dir });
+    return `${siteId} prices ${results.length}/${urls.length} read, ${changes.length} reduced prices checked`;
+  } finally {
+    queuedSites.delete('prices:' + siteId);
+  }
 }
 
 async function pump() {
@@ -330,7 +412,7 @@ async function pump() {
   const t0 = Date.now();
   let line;
   try {
-    line = job.kind === 'public' ? await runPublic(job.id) : await runScheduled(job.siteId);
+    line = job.kind === 'public' ? await runPublic(job.id) : job.kind === 'prices' ? await runPrices(job.siteId) : await runScheduled(job.siteId);
   } catch (e) {
     line = `${job.kind} ${job.id || job.siteId} failed ${failReason(e)}`;
     if (browser) { await browser.close().catch(() => {}); browser = null; }
@@ -350,6 +432,13 @@ if (store) {
         if (queuedSites.has(site.id)) continue;
         queuedSites.add(site.id);
         queue.push({ kind: 'scheduled', siteId: site.id });
+      }
+      if (inWindow) {
+        for (const site of store.priceDueSites(day(new Date().toISOString()))) {
+          if (queuedSites.has('prices:' + site.id)) continue;
+          queuedSites.add('prices:' + site.id);
+          queue.push({ kind: 'prices', siteId: site.id });
+        }
       }
       setImmediate(pump);
     } catch (e) {

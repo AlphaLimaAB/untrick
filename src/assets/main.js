@@ -119,6 +119,13 @@
     if (c.rule === 'UT-12') return typeof x.serious === 'number' ? x.serious + ' ' + q.seriousErrors : '';
     if (c.rule === 'UT-14') return x.words && x.words.length ? q.found + ' ' + x.words.map((w) => '"' + w + '"').join(', ') : q.noGreen;
     if (c.rule === 'UT-17') return c.result === 'ok' ? q.orgFound : q.orgMissing;
+    if (c.rule === 'UT-21') {
+      if (c.result === 'ok') return q.trackersNone;
+      if (c.result === 'check') return q.googlePings;
+      return q.trackersFound + ' ' + (x.trackers || []).concat((x.cookies || []).map((n) => 'cookie ' + n)).join(', ');
+    }
+    if (c.rule === 'UT-20') return q.chatFound + ' ' + (x.vendors || []).join(', ') + '. ' + q.chatNote;
+    if (c.rule === 'UT-22') return q.odrFound;
     return '';
   }
   function showQuick(email) {

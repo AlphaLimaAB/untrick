@@ -84,7 +84,16 @@
       "r_UT17": "Company details",
       "noGreen": "No generic green claims",
       "orgFound": "Registration number shown",
-      "orgMissing": "No registration number found"
+      "orgMissing": "No registration number found",
+      "r_UT21": "Tracking before consent",
+      "r_UT20": "Chatbot",
+      "r_UT22": "Link to a closed EU service",
+      "trackersNone": "No tracking starts before the visitor chooses",
+      "trackersFound": "Starts before the visitor chooses:",
+      "googlePings": "Only Google measurement without cookies (Consent Mode)",
+      "chatFound": "Chat found:",
+      "chatNote": "It must say that it is an AI.",
+      "odrFound": "The EU ODR platform closed on 20 July 2025. Remove the link."
     }
   },
   "pages": {

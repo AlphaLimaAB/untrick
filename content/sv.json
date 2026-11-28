@@ -84,7 +84,16 @@
       "r_UT17": "Företagsuppgifter",
       "noGreen": "Inga allmänna miljöpåståenden",
       "orgFound": "Organisationsnummer visas",
-      "orgMissing": "Hittade inget organisationsnummer"
+      "orgMissing": "Hittade inget organisationsnummer",
+      "r_UT21": "Spårning innan samtycke",
+      "r_UT20": "Chattbot",
+      "r_UT22": "Länk till nedlagd EU-tjänst",
+      "trackersNone": "Ingen spårning startar innan besökaren valt",
+      "trackersFound": "Startar innan besökaren valt:",
+      "googlePings": "Bara Google-mätning utan kakor (Consent Mode)",
+      "chatFound": "Chatt hittad:",
+      "chatNote": "Den ska tala om att den är en AI.",
+      "odrFound": "EU:s ODR-plattform stängdes 20 juli 2025. Ta bort länken."
     }
   },
   "pages": {
