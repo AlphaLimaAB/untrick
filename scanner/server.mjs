@@ -9,14 +9,20 @@
 //  - the container's network is also blocked from the home network by the host firewall
 //  - one scan at a time, a short queue, per-IP rate limit, hard timeouts
 //  - results are only returned when the email's domain matches the scanned site
-//  - nothing personal is stored; scans are forgotten after two hours
+//  - nothing personal is stored; instant-check scans are forgotten after two hours
+//
+// Customer mode (only when a writable /data folder is mounted): sites of paying customers are
+// scanned on a schedule, results and dated evidence are stored, and a findings register is kept.
+// It has no HTTP endpoints; Anton manages it with `docker exec untrick-scanner node admin.mjs`.
 import http from 'node:http';
 import net from 'node:net';
 import { lookup } from 'node:dns/promises';
-import { randomUUID } from 'node:crypto';
-import { readFileSync } from 'node:fs';
+import { randomUUID, createHash } from 'node:crypto';
+import { readFileSync, writeFileSync, mkdirSync } from 'node:fs';
+import path from 'node:path';
 import { createRequire } from 'node:module';
 import { chromium } from 'playwright';
+import { dataDir, openStore, day, localHour } from './store.mjs';
 
 const require = createRequire(import.meta.url);
 const AXE = readFileSync(require.resolve('axe-core/axe.min.js'), 'utf8');
@@ -28,6 +34,10 @@ const MAX_QUEUE = 8;
 const KEEP_MS = 2 * 3600 * 1000;
 const NAV_TIMEOUT = 20000;
 const SCAN_TIMEOUT = 60000;
+const DATA = dataDir();
+const store = DATA ? openStore(DATA) : null;
+// Scheduled scans run at night, Stockholm time (a range like "1-6" means 01:00 to 06:59).
+const [WIN_FROM, WIN_TO] = (process.env.SCAN_HOURS || '1-6').split('-').map(Number);
 const USER_AGENT = 'Mozilla/5.0 (X11; Linux aarch64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0 Safari/537.36 UntrickCheck/1.0 (+https://untrick.eu)';
 
 // ---------- address checks ----------
@@ -202,7 +212,20 @@ async function getBrowser() {
   return browser;
 }
 
-async function scanUrl(url) {
+const sha256 = (buf) => createHash('sha256').update(buf).digest('hex');
+
+async function saveEvidence(page, dir) {
+  // A dated picture of what the visitor saw: the first screen (cookie banner) and the page from the top.
+  mkdirSync(path.join(DATA, dir), { recursive: true });
+  const first = await page.screenshot({ type: 'png' });
+  const height = await page.evaluate(() => Math.min(document.documentElement.scrollHeight, 6000)).catch(() => 900);
+  const full = await page.screenshot({ type: 'jpeg', quality: 60, fullPage: true, clip: { x: 0, y: 0, width: 1280, height: Math.max(height, 900) } });
+  writeFileSync(path.join(DATA, dir, 'first-screen.png'), first);
+  writeFileSync(path.join(DATA, dir, 'full-page.jpg'), full);
+  return { 'first-screen.png': sha256(first), 'full-page.jpg': sha256(full) };
+}
+
+async function scanUrl(url, evidenceDir = null) {
   const b = await getBrowser();
   const context = await b.newContext({
     userAgent: USER_AGENT, locale: 'sv-SE', viewport: { width: 1280, height: 900 }, bypassCSP: true,
@@ -228,40 +251,113 @@ async function scanUrl(url) {
     await page.waitForTimeout(2500); // let cookie banners appear
     const finalUrl = new URL(page.url());
     if (!(await safeHost(finalUrl.hostname))) throw new Error('blocked redirect');
+    const files = evidenceDir ? await saveEvidence(page, evidenceDir) : null;
     const { checks, score } = await runChecks(page);
-    return { status: 'done', httpStatus: response ? response.status() : null, finalHost: finalUrl.hostname, checks, score };
+    return { status: 'done', httpStatus: response ? response.status() : null, finalHost: finalUrl.hostname, finalUrl: finalUrl.toString(), checks, score, files };
   } finally {
     await context.close().catch(() => {});
   }
 }
 
 // ---------- queue ----------
+// One scan at a time. Jobs are instant checks from the website or scheduled customer scans.
 const scans = new Map();
 const queue = [];
+const queuedSites = new Set();
 let running = false;
-async function pump() {
-  if (running) return;
-  const id = queue.shift();
-  if (!id) return;
-  running = true;
+const publicQueued = () => queue.filter((j) => j.kind === 'public').length;
+const withTimeout = (p) => Promise.race([p, new Promise((_, reject) => setTimeout(() => reject(new Error('timeout')), SCAN_TIMEOUT))]);
+const failReason = (e) => (/timeout/i.test(e.message) ? 'timeout' : /blocked/i.test(e.message) ? 'blocked' : 'unreachable');
+
+async function runPublic(id) {
   const s = scans.get(id);
+  if (!s) return;
   s.status = 'running';
-  const t0 = Date.now();
   try {
-    const result = await Promise.race([
-      scanUrl(s.url),
-      new Promise((_, reject) => setTimeout(() => reject(new Error('timeout')), SCAN_TIMEOUT))
-    ]);
-    Object.assign(s, result);
+    Object.assign(s, await withTimeout(scanUrl(s.url)));
   } catch (e) {
     s.status = 'failed';
-    s.reason = /timeout/i.test(e.message) ? 'timeout' : /blocked/i.test(e.message) ? 'blocked' : 'unreachable';
+    s.reason = failReason(e);
+    throw e;
+  }
+  return `${s.url.hostname} ${s.status}`;
+}
+
+async function runScheduled(siteId) {
+  try {
+    return await scanSite(siteId);
+  } finally {
+    queuedSites.delete(siteId); // only now, so the scheduler does not queue the site twice
+  }
+}
+
+async function scanSite(siteId) {
+  const site = store.site(siteId);
+  if (!site) return;
+  const scanId = randomUUID();
+  const started = new Date().toISOString();
+  const dir = path.posix.join('evidence', siteId, `${day(started)}_${scanId.slice(0, 8)}`);
+  let result;
+  let error = null;
+  const url = normaliseUrl(site.url);
+  try {
+    if (!url || !(await safeHost(url.hostname))) throw new Error('blocked');
+    result = await withTimeout(scanUrl(url, dir));
+  } catch (e) {
+    error = e;
+    result = { status: 'failed', reason: failReason(e) };
+  }
+  let evidence = null;
+  let hash = null;
+  if (result.files) {
+    const record = JSON.stringify({ scanId, siteId, url: site.url, finalUrl: result.finalUrl, started, finished: new Date().toISOString(),
+      httpStatus: result.httpStatus, score: result.score, checks: result.checks, files: result.files, userAgent: USER_AGENT }, null, 2);
+    writeFileSync(path.join(DATA, dir, 'result.json'), record);
+    evidence = dir;
+    hash = sha256(record);
+  }
+  const changes = store.recordScan({ scanId, siteId, started, result, evidence, sha256: hash });
+  if (error) throw error;
+  const register = changes.filter((c) => c.status).map((c) => `${c.rule}:${c.status}`).join(' ');
+  return `${siteId} scheduled ${result.status} score=${result.score} ${register}`;
+}
+
+async function pump() {
+  if (running) return;
+  const job = queue.shift();
+  if (!job) return;
+  running = true;
+  const t0 = Date.now();
+  let line;
+  try {
+    line = job.kind === 'public' ? await runPublic(job.id) : await runScheduled(job.siteId);
+  } catch (e) {
+    line = `${job.kind} ${job.id || job.siteId} failed ${failReason(e)}`;
     if (browser) { await browser.close().catch(() => {}); browser = null; }
   }
-  console.log(`${new Date().toISOString()} scan ${s.url.hostname} ${s.status}${s.reason ? ' ' + s.reason : ''} ${Date.now() - t0}ms`);
+  if (line) console.log(`${new Date().toISOString()} scan ${line} ${Date.now() - t0}ms`);
   running = false;
   setImmediate(pump);
 }
+
+// Every minute: queue customer sites that are due (night window) or that Anton asked to scan now.
+if (store) {
+  setInterval(() => {
+    try {
+      const h = localHour();
+      const inWindow = WIN_FROM <= WIN_TO ? h >= WIN_FROM && h <= WIN_TO : h >= WIN_FROM || h <= WIN_TO;
+      for (const site of store.dueSites(new Date(), inWindow)) {
+        if (queuedSites.has(site.id)) continue;
+        queuedSites.add(site.id);
+        queue.push({ kind: 'scheduled', siteId: site.id });
+      }
+      setImmediate(pump);
+    } catch (e) {
+      console.error('scheduler', e.message);
+    }
+  }, 60000).unref();
+}
+
 setInterval(() => {
   const now = Date.now();
   for (const [id, s] of scans) if (now - s.created > KEEP_MS) scans.delete(id);
@@ -301,7 +397,7 @@ const server = http.createServer(async (req, res) => {
     });
     return res.end();
   }
-  if (req.method === 'GET' && path === '/health') return send(res, 200, { ok: true, queue: queue.length, running }, origin);
+  if (req.method === 'GET' && path === '/health') return send(res, 200, { ok: true, queue: publicQueued(), running }, origin);
 
   if (req.method === 'POST' && path === '/') {
     if (origin && !ORIGINS.includes(origin)) return send(res, 403, { error: 'origin' }, origin);
@@ -312,10 +408,12 @@ const server = http.createServer(async (req, res) => {
     if (!url) return send(res, 400, { error: 'url' }, origin);
     if (!(await safeHost(url.hostname))) return send(res, 400, { error: 'url' }, origin);
     if (!allow(ip)) return send(res, 429, { error: 'rate' }, origin);
-    if (queue.length >= MAX_QUEUE) return send(res, 503, { error: 'busy' }, origin);
+    if (publicQueued() >= MAX_QUEUE) return send(res, 503, { error: 'busy' }, origin);
     const id = randomUUID();
     scans.set(id, { id, url, created: Date.now(), status: 'queued' });
-    queue.push(id);
+    // Instant checks go ahead of scheduled scans: someone is waiting on the website.
+    const firstScheduled = queue.findIndex((j) => j.kind !== 'public');
+    queue.splice(firstScheduled === -1 ? queue.length : firstScheduled, 0, { kind: 'public', id });
     setImmediate(pump);
     return send(res, 202, { id, status: 'queued' }, origin);
   }
@@ -338,5 +436,5 @@ const server = http.createServer(async (req, res) => {
   return send(res, 404, { error: 'not_found' }, origin);
 });
 
-server.listen(PORT, '0.0.0.0', () => console.log(`untrick-scanner listening on ${PORT}`));
+server.listen(PORT, '0.0.0.0', () => console.log(`untrick-scanner listening on ${PORT}, customer mode ${store ? 'on (' + DATA + ')' : 'off'}`));
 process.on('SIGTERM', async () => { if (browser) await browser.close().catch(() => {}); process.exit(0); });

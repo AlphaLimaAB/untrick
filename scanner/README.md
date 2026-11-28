@@ -18,15 +18,43 @@ through Tailscale Funnel.
 - `untrick-scanner-firewall` adds host firewall rules so the container cannot reach the home
   network, the Tailscale network or the Pi's own services, whatever the code does.
 - Runs as a non-root user, read-only file system, no capabilities, one scan at a time, hard
-  timeouts. Scans are forgotten after two hours; nothing personal is stored.
+  timeouts. Instant checks are forgotten after two hours; nothing personal is stored.
 
-## Deploy (on the Pi)
+## Customer mode (monitoring for paying customers)
+
+When `/srv/untrick-scanner/data` is mounted at `/data`, the scanner also keeps customer sites:
+
+- **Scheduled scans.** Active sites are scanned every 7 days by default, at night (01:00–06:59
+  Stockholm time, `SCAN_HOURS`). Instant checks from the website always go first.
+- **Evidence.** Every scheduled scan saves `first-screen.png`, `full-page.jpg` and `result.json`
+  (with SHA-256 hashes) in `data/evidence/<site>/<date>_<scan>/`. The database stores the hash of
+  `result.json`, so a later change to the evidence can be detected.
+- **Findings register.** One row per site, rule and place. The automatic checks update it:
+  - a problem seen for the first time is **New**; seen again, **Open**;
+  - a pass marks **New/Open/Reopened** findings **Fixed**;
+  - a problem on a **Fixed** finding makes it **Reopened**;
+  - an unknown result never changes a status;
+  - **Accepted risk** is only set by hand and stays until the problem is gone.
+  Manual results (checkout, terms, product pages) go in with `record` and follow the same rules.
+- **No HTTP endpoints.** It is managed on the Pi with `docker exec`, so nothing new is exposed.
 
 ```bash
-sudo mkdir -p /opt/untrick-scanner && sudo cp -r scanner/* /opt/untrick-scanner/
-sudo install -m 755 /opt/untrick-scanner/untrick-scanner-firewall /usr/local/sbin/
-sudo install -m 644 /opt/untrick-scanner/untrick-scanner.service /etc/systemd/system/
-sudo docker build -t untrick-scanner:1 /opt/untrick-scanner
-sudo systemctl daemon-reload && sudo systemctl enable --now untrick-scanner
-sudo tailscale funnel --bg --set-path=/scan http://127.0.0.1:8090
+alias ut='docker exec untrick-scanner node admin.mjs'
+ut add dinbutik.se --company "Din Butik AB"     # baseline scan within a minute
+ut set dinbutik-se status Active                # weekly scans from now on
+ut record dinbutik-se UT-02 Checkout fail --severity High --saw "Insurance pre-ticked"
+ut finding dinbutik-se UT-14 "Front page" status "Accepted risk"
+ut alerts 7                                     # new, reopened, fixed, failing, overdue, score drops
+ut summary dinbutik-se 2026-12                  # Markdown for the monthly report
+ut register dinbutik-se --tsv                   # paste into the tracker's Register sheet
+```
+
+Data stays on the Pi. Back it up off the Pi (the evidence is what the customer pays for).
+
+## Deploy or update (on the Pi)
+
+```bash
+curl -fsSL https://codeload.github.com/AlphaLimaAB/untrick/tar.gz/main | tar xz --strip-components=2 -C ~/untrick-scanner untrick-main/scanner
+cd ~/untrick-scanner && sudo sh install.sh
+sudo tailscale funnel --bg --set-path=/scan http://127.0.0.1:8090   # first install only
 ```
