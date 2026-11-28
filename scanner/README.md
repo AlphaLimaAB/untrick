@@ -49,7 +49,10 @@ ut summary dinbutik-se 2026-12                  # Markdown for the monthly repor
 ut register dinbutik-se --tsv                   # paste into the tracker's Register sheet
 ```
 
-Data stays on the Pi. Back it up off the Pi (the evidence is what the customer pays for).
+**Backup.** `ut backup` writes a consistent copy of the database to `data/backup/` (the last 30 are kept).
+On Anton's Mac, `mac-backup/untrick-backup.sh` runs every day at 12:15 (or when the Mac wakes) from the
+LaunchAgent `eu.untrick.backup`. It makes that copy and pulls `data/` to iCloud Drive, in
+`Business/Untrick/Scanner backup`. Nothing is deleted in iCloud. Log: `~/Library/Logs/untrick-backup.log`.
 
 ## Deploy or update (on the Pi)
 
